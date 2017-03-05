@@ -2,6 +2,9 @@ package com.medeiros.ordnael.controlefinanceiro.controller;
 
 import java.time.Instant;
 
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +16,7 @@ import com.medeiros.ordnael.controlefinanceiro.model.ObjetoTeste;
 
 @Controller
 @RequestMapping("/teste")
+@Produces(MediaType.APPLICATION_JSON)
 public class TesteController {
 
 	@RequestMapping(value="/ping", method = RequestMethod.GET)

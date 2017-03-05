@@ -1,8 +1,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:jee="http://www.springframework.org/schema/jee"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
@@ -49,4 +47,14 @@
 			<value>.jsp</value>
 		</property>
 	</bean>
+
+	<mvc:interceptors>
+		<!-- This bit of XML will intercept all URLs - which is what you want in 
+			a web app -->
+		<bean class="com.medeiros.ordnael.controlefinanceiro.core.interceptors.RequestProcessingTimeInterceptor" />
+		<!-- This bit of XML will apply certain URLs to certain interceptors -->
+		<!-- <mvc:interceptor> <mvc:mapping path="/gb/shop/**"/> <bean class="marin.interceptor.RequestInitializeInterceptor" 
+			/> </mvc:interceptor> -->
+	</mvc:interceptors>
+
 </beans>

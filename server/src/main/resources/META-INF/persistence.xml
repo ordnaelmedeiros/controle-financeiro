@@ -14,6 +14,8 @@
 		<jta-data-source>java:/controlefinanceiroDS</jta-data-source>
 
 		<class>com.medeiros.ordnael.controlefinanceiro.model.Gasto</class>
+		<class>com.medeiros.ordnael.controlefinanceiro.model.GastoGrupo</class>
+		<class>com.medeiros.ordnael.controlefinanceiro.model.GastoSubGrupo</class>
 
 		<properties>
 

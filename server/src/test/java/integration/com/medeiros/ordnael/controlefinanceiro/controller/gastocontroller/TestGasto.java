@@ -31,25 +31,25 @@ public class TestGasto extends TestCase {
 		Gasto gastoSalvo = entity.getBody();
 		
 		assertNotNull(gastoSalvo);
-		assertNotNull(gastoSalvo.getGastoId());
+		assertNotNull(gastoSalvo.getId());
 		assertEquals(gasto.getDescricao(), gastoSalvo.getDescricao());
 		
 		gastoSalvo.setDescricao(gastoSalvo.getDescricao() + " 11");
 		
 		restTemplate.put(url, gastoSalvo);
 		
-		entity = restTemplate.getForEntity(url+"/{id}", Gasto.class, gastoSalvo.getGastoId());
+		entity = restTemplate.getForEntity(url+"/{id}", Gasto.class, gastoSalvo.getId());
 		assertNotNull(entity);
 		
 		Gasto gastoAnterado = entity.getBody();
 		
 		assertNotNull(gastoAnterado);
-		assertNotNull(gastoAnterado.getGastoId());
+		assertNotNull(gastoAnterado.getId());
 		assertEquals(gastoSalvo.getDescricao(), gastoAnterado.getDescricao());
 		
-		restTemplate.delete(url+"/{id}", gastoAnterado.getGastoId());
+		restTemplate.delete(url+"/{id}", gastoAnterado.getId());
 		
-		entity = restTemplate.getForEntity(url+"/{id}", Gasto.class, gastoSalvo.getGastoId());
+		entity = restTemplate.getForEntity(url+"/{id}", Gasto.class, gastoSalvo.getId());
 		assertNotNull(entity);
 		assertNull(entity.getBody());
 		

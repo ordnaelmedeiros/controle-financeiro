@@ -3,9 +3,8 @@ package com.medeiros.ordnael.controlefinanceiro.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-@XmlRootElement
 public class ObjetoTeste {
 	
 	private Integer vInteger;
@@ -17,7 +16,7 @@ public class ObjetoTeste {
 	private BigDecimal vBigDecimal;
 	private String vString;
 	
-	//@XmlJavaTypeAdapter(LocalDateAdapter.class)
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate vLocalDate;
 	
 	public void criar() {

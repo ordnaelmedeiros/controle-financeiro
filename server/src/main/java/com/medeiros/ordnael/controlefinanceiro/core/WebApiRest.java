@@ -3,8 +3,6 @@ package com.medeiros.ordnael.controlefinanceiro.core;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.medeiros.ordnael.controlefinanceiro.model.Gasto;
-
 public class WebApiRest {
 	
 	private String urlBase = "http://localhost:8080/controlefinanceiro/";

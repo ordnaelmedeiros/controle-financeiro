@@ -1,21 +1,18 @@
-package com.medeiros.ordnael.controlefinanceiro.model;
+package com.medeiros.ordnael.controlefinanceiro.repository.gasto.grupo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Table
 @Entity
-public class GastoSubGrupo {
+public class GastoGrupo {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(length=5)
@@ -23,10 +20,6 @@ public class GastoSubGrupo {
 	
 	@Column(length=200)
 	private String descricao;
-	
-	@ManyToOne(targetEntity=GastoGrupo.class)
-	@JoinColumn(name="gastoGrupoId", foreignKey=@ForeignKey(name="fk_GastoSubGrupo_GastoGrupo"))
-	private GastoGrupo gastoGrupo;
 
 	public Long getId() {
 		return id;
@@ -50,14 +43,6 @@ public class GastoSubGrupo {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public GastoGrupo getGastoGrupo() {
-		return gastoGrupo;
-	}
-
-	public void setGastoGrupo(GastoGrupo gastoGrupo) {
-		this.gastoGrupo = gastoGrupo;
 	}
 	
 }

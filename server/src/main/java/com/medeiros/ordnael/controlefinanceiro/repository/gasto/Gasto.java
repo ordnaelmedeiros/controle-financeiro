@@ -1,4 +1,4 @@
-package com.medeiros.ordnael.controlefinanceiro.model;
+package com.medeiros.ordnael.controlefinanceiro.repository.gasto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.medeiros.ordnael.controlefinanceiro.repository.gasto.grupo.GastoGrupo;
+import com.medeiros.ordnael.controlefinanceiro.repository.gasto.subgrupo.GastoSubGrupo;
 
 @Table
 @Entity
@@ -87,6 +89,11 @@ public class Gasto {
 
 	public void setGastoGrupo(GastoGrupo gastoGrupo) {
 		this.gastoGrupo = gastoGrupo;
+		if (this.gastoGrupo!=null) {
+			this.setGastoGrupoId(this.gastoGrupo.getId());
+		} else {
+			this.setGastoGrupoId(null);
+		}
 	}
 
 	public GastoSubGrupo getGastoSubGrupo() {
@@ -95,6 +102,11 @@ public class Gasto {
 
 	public void setGastoSubGrupo(GastoSubGrupo gastoSubGrupo) {
 		this.gastoSubGrupo = gastoSubGrupo;
+		if (this.gastoSubGrupo!=null) {
+			this.setGastoSubGrupoId(this.gastoSubGrupo.getId());
+		} else {
+			this.setGastoSubGrupoId(null);
+		}
 	}
 
 	public Long getGastoSubGrupoId() {

@@ -3,7 +3,7 @@ package integration.com.medeiros.ordnael.controlefinanceiro.controller.gastocont
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.medeiros.ordnael.controlefinanceiro.model.Gasto;
+import com.medeiros.ordnael.controlefinanceiro.repository.gasto.Gasto;
 
 import junit.framework.TestCase;
 
@@ -23,7 +23,13 @@ public class TestGasto extends TestCase {
 
 		Gasto gasto = new Gasto();
 		gasto.setDescricao("Teste");
+		/*
+		GastoGrupo grupo = new GastoGrupo();
+		grupo.setId(1l);
+		gasto.setGastoGrupo(grupo);
 		
+		//gasto.setGastoGrupoId(1l);
+		*/
 		entity = restTemplate.postForEntity(url, gasto, Gasto.class);
 		
 		assertNotNull(entity);

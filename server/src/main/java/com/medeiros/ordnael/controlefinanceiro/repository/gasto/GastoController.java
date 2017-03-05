@@ -1,10 +1,9 @@
-package com.medeiros.ordnael.controlefinanceiro.controller;
+package com.medeiros.ordnael.controlefinanceiro.repository.gasto;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.medeiros.ordnael.controlefinanceiro.core.controller.ControllerCRUDObject;
-import com.medeiros.ordnael.controlefinanceiro.model.Gasto;
 
 @Controller
 @RequestMapping("/gasto")

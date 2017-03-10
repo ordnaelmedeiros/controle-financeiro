@@ -44,8 +44,6 @@ public abstract class Resource<Model> {
 		this.classe = classe;
 	}
 	
-	
-	
 	@Transactional
 	public List<Model> findAll() throws Exception {
 
@@ -81,12 +79,14 @@ public abstract class Resource<Model> {
 	
 	@Transactional
 	public Model persist(Model model) throws Exception {
+		this.atualizaSuperIds(model);
 		this.getEm().persist(model);
 		return model;
 	}
 	
 	@Transactional
 	public Model merge(Model model) throws Exception {
+		this.atualizaSuperIds(model);
 		this.getEm().merge(model);
 		return model;
 	}
@@ -103,6 +103,10 @@ public abstract class Resource<Model> {
 
 	public void setClasse(Class<?> classe) {
 		this.classe = (Class<Model>)classe;
+	}
+	
+	protected void atualizaSuperIds(Model entity) throws Exception {
+		
 	}
 	
 }

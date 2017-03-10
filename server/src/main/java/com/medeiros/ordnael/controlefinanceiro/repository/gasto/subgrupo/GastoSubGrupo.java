@@ -30,12 +30,9 @@ public class GastoSubGrupo {
 	
 	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="gastoGrupoId", foreignKey=@ForeignKey(name="fk_GastoSubGrupo_GastoGrupo"), insertable=false, updatable=false)
+	@JoinColumn(name="gastoGrupoId", foreignKey=@ForeignKey(name="fk_GastoSubGrupo_GastoGrupo"))
 	private GastoGrupo gastoGrupo;
 	
-	@Column
-	private Long gastoGrupoId;
-
 	public Long getId() {
 		return id;
 	}
@@ -68,12 +65,4 @@ public class GastoSubGrupo {
 		this.gastoGrupo = gastoGrupo;
 	}
 
-	public Long getGastoGrupoId() {
-		return gastoGrupoId;
-	}
-
-	public void setGastoGrupoId(Long gastoGrupoId) {
-		this.gastoGrupoId = gastoGrupoId;
-	}
-	
 }

@@ -17,7 +17,7 @@ public class GastoSubGrupoResource extends Resource<GastoSubGrupo> {
 	@Override
 	protected Map<String, Object> getFiltrosFixos() {
 		Map<String, Object> filtros = new HashMap<>();
-		filtros.put("gastoGrupoId", this.getSuperId1());
+		filtros.put("gastoGrupo.id", this.getSuperId1());
 		return filtros;
 	}
 

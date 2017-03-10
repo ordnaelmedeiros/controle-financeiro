@@ -12,22 +12,22 @@ public abstract class ControllerCRUDObject<Model> extends ControllerCRUD<Model> 
 	
 	@Override
 	public List<Model> pesquisar() throws Exception {
-		return getResource().findAll(this.classe);
+		return getResource().findAll();
 	}
 
 	@Override
 	public Model pesquisar(Long id) throws Exception {
-		return getResource().find(this.classe, id);
+		return getResource().find(id);
 	}
 
 	@Override
 	public Model gravar(Model model) throws Exception {
-		return getResource().persist2(model);
+		return getResource().persist(model);
 	}
 
 	@Override
 	public Model alterar(Model model) throws Exception {
-		return getResource().merge2(model);
+		return getResource().merge(model);
 	}
 
 	@Override

@@ -7,10 +7,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.transaction.Transactional;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+@SuppressWarnings("unchecked")
 public abstract class Resource<Model> {
 
 	protected abstract Map<String, Object> getFiltrosFixos();
@@ -42,19 +45,23 @@ public abstract class Resource<Model> {
 	}
 	
 	
+	
 	@Transactional
 	public List<Model> findAll() throws Exception {
 
-		List<Model> list = this.getEm().createQuery("SELECT c FROM "+this.getClasse().getSimpleName()+" c ORDER BY c.id ", getClasse()).getResultList();
-		return list;
-
-	}
-	
-	@Transactional
-	public <T> List<T> findAll(Class<T> entityClass) throws Exception {
-
-		List<T> list = this.getEm().createQuery("SELECT c FROM "+entityClass.getSimpleName()+" c ORDER BY c.id ", entityClass).getResultList();
-		return list;
+		List<Model> lista = null;
+		
+		Map<String, Object> filtros = this.getFiltrosFixos();
+		
+		Criteria cri = this.createCriteria();
+		if (filtros!=null) {
+			cri.add(Restrictions.allEq(filtros));
+		}
+		cri.addOrder(Order.asc("id"));
+		
+		lista = cri.list();
+		
+		return lista;
 
 	}
 	
@@ -73,44 +80,17 @@ public abstract class Resource<Model> {
 	}
 	
 	@Transactional
-	public <T> T find(Class<T> entityClass, Long id) throws Exception  {
-		
-		T model = null;
-		
-		Map<String, Object> filtros = this.getFiltrosFixos();
-		if (filtros!=null) {
-			model = (T) this.createCriteria().add(Restrictions.idEq(id)).add(Restrictions.allEq(filtros)).uniqueResult();
-		} else {
-			model = this.getEm().find(entityClass, id);
-		}
-		
-		return model;
-		
-	}
-
-	@Transactional
 	public Model persist(Model model) throws Exception {
 		this.getEm().persist(model);
 		return model;
 	}
 	
 	@Transactional
-	public <T> T persist2(T entityClass) throws Exception  {
-		this.getEm().persist(entityClass);
-		return entityClass;
-	}
-
-	@Transactional
 	public Model merge(Model model) throws Exception {
 		this.getEm().merge(model);
 		return model;
 	}
 	
-	@Transactional
-	public <T> T merge2(T entity) throws Exception {
-		return this.getEm().merge(entity);
-	}
-
 	@Transactional
 	public void remove(Long id) throws Exception {
 		Model ent = this.find(id);
@@ -121,9 +101,8 @@ public abstract class Resource<Model> {
 		return classe;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void setClasse(Class<?> classe) {
 		this.classe = (Class<Model>)classe;
 	}
-
+	
 }

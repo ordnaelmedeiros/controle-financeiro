@@ -21,7 +21,10 @@ public abstract class ControllerCRUD<Model> {
 	protected abstract Resource<Model> getResource();
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public @ResponseBody List<Model> get() throws Exception {
+	public @ResponseBody List<Model> get(
+			@PathVariable(required=false) Long superId1
+			) throws Exception {
+		this.getResource().setSuperId1(superId1);
 		return this.pesquisar();
 	}
 	

@@ -1,4 +1,4 @@
-package com.medeiros.ordnael.controlefinanceiro.controller;
+package com.medeiros.ordnael.controlefinanceiro.repository.teste;
 
 import java.time.Instant;
 
@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.medeiros.ordnael.controlefinanceiro.model.ObjetoTeste;
 
 @Controller
 @RequestMapping("/teste")

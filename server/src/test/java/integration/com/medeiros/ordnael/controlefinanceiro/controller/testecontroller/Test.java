@@ -3,7 +3,7 @@ package integration.com.medeiros.ordnael.controlefinanceiro.controller.testecont
 
 
 import com.medeiros.ordnael.controlefinanceiro.core.WebApiRest;
-import com.medeiros.ordnael.controlefinanceiro.model.ObjetoTeste;
+import com.medeiros.ordnael.controlefinanceiro.repository.teste.ObjetoTeste;
 
 import junit.framework.TestCase;
 

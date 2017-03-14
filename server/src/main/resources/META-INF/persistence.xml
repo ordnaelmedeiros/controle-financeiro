@@ -12,10 +12,11 @@
 
 		<!-- INFORMANDO O DATASOURCE -->
 		<jta-data-source>java:/controlefinanceiroDS</jta-data-source>
-		
+
 		<class>com.medeiros.ordnael.controlefinanceiro.repository.gasto.Gasto</class>
 		<class>com.medeiros.ordnael.controlefinanceiro.repository.gasto.grupo.GastoGrupo</class>
 		<class>com.medeiros.ordnael.controlefinanceiro.repository.gasto.subgrupo.GastoSubGrupo</class>
+		<class>com.medeiros.ordnael.controlefinanceiro.repository.usuario.Usuario</class>
 
 		<properties>
 

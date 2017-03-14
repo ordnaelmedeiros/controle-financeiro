@@ -9,22 +9,28 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import ValidacaoCampoObrigatorioString.CampoInfo;
+
 @Table
 @Entity
 public class Usuario {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@CampoInfo(descricao="Código")
 	private Long id;
 	
 	@Column(length=30)
+	@CampoInfo(descricao="Nome de Acesso", obrigatorio=true)
 	private String nomeacesso;
 	
 	@Column(length=200)
+	@CampoInfo(descricao="Email", obrigatorio=true)
 	private String email;
 	
 	@JsonIgnore
 	@Column(length=64)
+	@CampoInfo(descricao="Senha")
 	private String senha;
 
 	public Long getId() {

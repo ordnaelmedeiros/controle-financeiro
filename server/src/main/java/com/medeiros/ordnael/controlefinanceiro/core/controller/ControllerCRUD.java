@@ -2,6 +2,9 @@ package com.medeiros.ordnael.controlefinanceiro.core.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,6 +65,12 @@ public abstract class ControllerCRUD<Model> {
 			) throws Exception {
 		this.getResource().setSuperId1(superId1);
 		return this.excluir(id);
+	}
+	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<String> error(Exception e) {
+		ResponseEntity<String> res = new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		return res;
 	}
 	
 }

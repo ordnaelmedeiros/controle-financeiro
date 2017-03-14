@@ -5,7 +5,8 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.medeiros.ordnael.controlefinanceiro.core.resource.Resource;
-import com.medeiros.ordnael.controlefinanceiro.repository.usuario.validacao.UsuarioNomeAcessoObrigatorio;
+import com.medeiros.ordnael.controlefinanceiro.repository.usuario.validacao.UsuarioEmailUnico;
+import com.medeiros.ordnael.controlefinanceiro.repository.usuario.validacao.UsuarioNomeAcessoUnico;
 
 @Repository
 public class UsuarioResource extends Resource<Usuario> {
@@ -13,7 +14,8 @@ public class UsuarioResource extends Resource<Usuario> {
 	public UsuarioResource() {
 		super(Usuario.class);
 		
-		this.addvalidPersistMerge(new UsuarioNomeAcessoObrigatorio());
+		this.addValidPersistMerge(new UsuarioNomeAcessoUnico());
+		this.addValidPersistMerge(new UsuarioEmailUnico());
 		
 	}
 

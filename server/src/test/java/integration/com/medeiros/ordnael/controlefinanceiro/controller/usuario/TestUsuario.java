@@ -1,9 +1,13 @@
 package integration.com.medeiros.ordnael.controlefinanceiro.controller.usuario;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import com.medeiros.ordnael.controlefinanceiro.core.validacao.impl.ValidacaoCampoObrigatorio;
 import com.medeiros.ordnael.controlefinanceiro.repository.usuario.Usuario;
+import com.medeiros.ordnael.controlefinanceiro.repository.usuario.validacao.UsuarioEmailUnico;
+import com.medeiros.ordnael.controlefinanceiro.repository.usuario.validacao.UsuarioNomeAcessoUnico;
 
 import junit.framework.TestCase;
 
@@ -19,17 +23,69 @@ public class TestUsuario extends TestCase {
 		
 	}
 	
+	private Usuario createUsuarioValido() {
+		
+		Usuario usuario = new Usuario();
+		usuario.setNomeacesso("teste");
+		usuario.setEmail("teste@gmail.com");
+		usuario.setSenha("123456");
+		
+		return usuario;
+		
+	}
+	
 	public void teste() {
 
-		Usuario usuario = new Usuario();
+		Usuario usuario = this.createUsuarioValido();
+		usuario.setNomeacesso(null);
 		
 		try {
 			entity = restTemplate.postForEntity(url, usuario, Usuario.class);
-			assertTrue("Devia dar erro", false);
+			assertEquals(new ValidacaoCampoObrigatorio<>().getMensagem(), "sucesso");
+		} catch (HttpServerErrorException e) {
+			assertEquals(new ValidacaoCampoObrigatorio<>().getMensagem()+"Nome de Acesso", e.getResponseBodyAsString());
 		} catch (Exception e) {
 			assertTrue("Deu erro", true);
 		}
 		
+		
+		usuario = this.createUsuarioValido();
+		usuario.setEmail(null);
+		
+		try {
+			entity = restTemplate.postForEntity(url, usuario, Usuario.class);
+			assertEquals(new ValidacaoCampoObrigatorio<>().getMensagem(), "sucesso");
+		} catch (HttpServerErrorException e) {
+			assertEquals(new ValidacaoCampoObrigatorio<>().getMensagem()+"Email", e.getResponseBodyAsString());
+		} catch (Exception e) {
+			assertTrue("Deu erro", true);
+		}
+		
+		
+		usuario = this.createUsuarioValido();
+		usuario.setNomeacesso("leandro");
+		
+		try {
+			entity = restTemplate.postForEntity(url, usuario, Usuario.class);
+			assertEquals(new UsuarioNomeAcessoUnico().getMensagem(), "sucesso");
+		} catch (HttpServerErrorException e) {
+			assertEquals(new UsuarioNomeAcessoUnico().getMensagem(), e.getResponseBodyAsString());
+		} catch (Exception e) {
+			assertTrue("Deu erro", true);
+		}
+		
+		
+		usuario = this.createUsuarioValido();
+		usuario.setEmail("ordnaelmedeiros@gmail.com");
+		
+		try {
+			entity = restTemplate.postForEntity(url, usuario, Usuario.class);
+			assertEquals(new UsuarioNomeAcessoUnico().getMensagem(), "sucesso");
+		} catch (HttpServerErrorException e) {
+			assertEquals(new UsuarioEmailUnico().getMensagem(), e.getResponseBodyAsString());
+		} catch (Exception e) {
+			assertTrue("Deu erro", true);
+		}
 		
 		
 		

@@ -14,15 +14,16 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import com.medeiros.ordnael.controlefinanceiro.core.validacao.Validador;
+import com.medeiros.ordnael.controlefinanceiro.core.validacao.Validacao;
+import com.medeiros.ordnael.controlefinanceiro.core.validacao.impl.ValidacaoCampoObrigatorio;
 
 @SuppressWarnings("unchecked")
 public abstract class Resource<Model> {
 	
-	private List<Validador<Model>> validPersist = new ArrayList<>();
-	private List<Validador<Model>> validPersistMerge = new ArrayList<>();
-	private List<Validador<Model>> validMerge = new ArrayList<>();
-	private List<Validador<Model>> validRemove = new ArrayList<>();
+	private List<Validacao<Model>> validPersist = new ArrayList<>();
+	private List<Validacao<Model>> validPersistMerge = new ArrayList<>();
+	private List<Validacao<Model>> validMerge = new ArrayList<>();
+	private List<Validacao<Model>> validRemove = new ArrayList<>();
 	
 	protected abstract Map<String, Object> getFiltrosFixos();
 	
@@ -50,6 +51,7 @@ public abstract class Resource<Model> {
 	
 	public Resource(Class<Model> classe) {
 		this.classe = classe;
+		this.addValidPersistMerge(new ValidacaoCampoObrigatorio<Model>());
 	}
 	
 	@Transactional
@@ -87,11 +89,11 @@ public abstract class Resource<Model> {
 	
 	@Transactional
 	public Model persist(Model model) throws Exception {
-		for (Validador<Model> validador : validPersist) {
-			validador.validar(model);
+		for (Validacao<Model> validador : validPersist) {
+			validador.validar(this, model);
 		}
-		for (Validador<Model> validador : validPersistMerge) {
-			validador.validar(model);
+		for (Validacao<Model> validador : validPersistMerge) {
+			validador.validar(this, model);
 		}
 		this.atualizaSuperIds(model);
 		this.getEm().persist(model);
@@ -100,11 +102,11 @@ public abstract class Resource<Model> {
 	
 	@Transactional
 	public Model merge(Model model) throws Exception {
-		for (Validador<Model> validador : validMerge) {
-			validador.validar(model);
+		for (Validacao<Model> validador : validMerge) {
+			validador.validar(this, model);
 		}
-		for (Validador<Model> validador : validPersistMerge) {
-			validador.validar(model);
+		for (Validacao<Model> validador : validPersistMerge) {
+			validador.validar(this, model);
 		}
 		this.atualizaSuperIds(model);
 		this.getEm().merge(model);
@@ -114,8 +116,8 @@ public abstract class Resource<Model> {
 	@Transactional
 	public void remove(Long id) throws Exception {
 		Model model = this.find(id);
-		for (Validador<Model> validador : validRemove) {
-			validador.validar(model);
+		for (Validacao<Model> validador : validRemove) {
+			validador.validar(this, model);
 		}
 		this.getEm().remove(model);
 	}
@@ -132,19 +134,19 @@ public abstract class Resource<Model> {
 		
 	}
 	
-	protected void addValidPersist(Validador<Model> val) {
+	protected void addValidPersist(Validacao<Model> val) {
 		this.validPersist.add(val);
 	}
 	
-	protected void addValidMerge(Validador<Model> val) {
+	protected void addValidMerge(Validacao<Model> val) {
 		this.validMerge.add(val);
 	}
 
-	protected void addvalidPersistMerge(Validador<Model> val) {
+	protected void addValidPersistMerge(Validacao<Model> val) {
 		this.validPersistMerge.add(val);
 	}
 	
-	protected void addValidRemove(Validador<Model> val) {
+	protected void addValidRemove(Validacao<Model> val) {
 		this.validRemove.add(val);
 	}
 	

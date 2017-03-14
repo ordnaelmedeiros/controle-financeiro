@@ -1,11 +1,13 @@
 package com.medeiros.ordnael.controlefinanceiro.core.validacao;
 
-public abstract class Validador<Model> {
+import com.medeiros.ordnael.controlefinanceiro.core.resource.Resource;
+
+public abstract class Validacao<Model> {
 
 	private String mensagem;
 	//private Resource<Model> resource;
 	
-	public Validador( String mensagem) {
+	public Validacao( String mensagem) {
 		this.mensagem = mensagem;
 	}
 	
@@ -19,6 +21,6 @@ public abstract class Validador<Model> {
 	//	return resource;
 	//}
 
-	public abstract void validar(Model model) throws Exception;
+	public abstract void validar(Resource<Model> res, Model model) throws Exception;
 	
 }

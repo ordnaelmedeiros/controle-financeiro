@@ -1,5 +1,6 @@
 package com.medeiros.ordnael.controlefinanceiro.core.resource;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,9 +14,16 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+import com.medeiros.ordnael.controlefinanceiro.core.validacao.Validador;
+
 @SuppressWarnings("unchecked")
 public abstract class Resource<Model> {
-
+	
+	private List<Validador<Model>> validPersist = new ArrayList<>();
+	private List<Validador<Model>> validPersistMerge = new ArrayList<>();
+	private List<Validador<Model>> validMerge = new ArrayList<>();
+	private List<Validador<Model>> validRemove = new ArrayList<>();
+	
 	protected abstract Map<String, Object> getFiltrosFixos();
 	
 	@PersistenceContext(type = PersistenceContextType.TRANSACTION)
@@ -79,6 +87,12 @@ public abstract class Resource<Model> {
 	
 	@Transactional
 	public Model persist(Model model) throws Exception {
+		for (Validador<Model> validador : validPersist) {
+			validador.validar(model);
+		}
+		for (Validador<Model> validador : validPersistMerge) {
+			validador.validar(model);
+		}
 		this.atualizaSuperIds(model);
 		this.getEm().persist(model);
 		return model;
@@ -86,6 +100,12 @@ public abstract class Resource<Model> {
 	
 	@Transactional
 	public Model merge(Model model) throws Exception {
+		for (Validador<Model> validador : validMerge) {
+			validador.validar(model);
+		}
+		for (Validador<Model> validador : validPersistMerge) {
+			validador.validar(model);
+		}
 		this.atualizaSuperIds(model);
 		this.getEm().merge(model);
 		return model;
@@ -93,8 +113,11 @@ public abstract class Resource<Model> {
 	
 	@Transactional
 	public void remove(Long id) throws Exception {
-		Model ent = this.find(id);
-		this.getEm().remove(ent);
+		Model model = this.find(id);
+		for (Validador<Model> validador : validRemove) {
+			validador.validar(model);
+		}
+		this.getEm().remove(model);
 	}
 	
 	public Class<Model> getClasse() {
@@ -107,6 +130,22 @@ public abstract class Resource<Model> {
 	
 	protected void atualizaSuperIds(Model entity) throws Exception {
 		
+	}
+	
+	protected void addValidPersist(Validador<Model> val) {
+		this.validPersist.add(val);
+	}
+	
+	protected void addValidMerge(Validador<Model> val) {
+		this.validMerge.add(val);
+	}
+
+	protected void addvalidPersistMerge(Validador<Model> val) {
+		this.validPersistMerge.add(val);
+	}
+	
+	protected void addValidRemove(Validador<Model> val) {
+		this.validRemove.add(val);
 	}
 	
 }

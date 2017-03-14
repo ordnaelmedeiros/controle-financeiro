@@ -8,8 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import ValidacaoCampoObrigatorioString.CampoInfo;
+import com.medeiros.ordnael.controlefinanceiro.core.validacao.CampoInfo;
 
 @Table
 @Entity

@@ -1,4 +1,4 @@
-package ValidacaoCampoObrigatorioString;
+package com.medeiros.ordnael.controlefinanceiro.core.validacao;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

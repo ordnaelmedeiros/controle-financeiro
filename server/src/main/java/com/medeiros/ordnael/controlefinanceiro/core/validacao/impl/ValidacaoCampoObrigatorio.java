@@ -3,9 +3,8 @@ package com.medeiros.ordnael.controlefinanceiro.core.validacao.impl;
 import java.lang.reflect.Field;
 
 import com.medeiros.ordnael.controlefinanceiro.core.resource.Resource;
+import com.medeiros.ordnael.controlefinanceiro.core.validacao.CampoInfo;
 import com.medeiros.ordnael.controlefinanceiro.core.validacao.Validacao;
-
-import ValidacaoCampoObrigatorioString.CampoInfo;
 
 public class ValidacaoCampoObrigatorio<Model> extends Validacao<Model> {
 

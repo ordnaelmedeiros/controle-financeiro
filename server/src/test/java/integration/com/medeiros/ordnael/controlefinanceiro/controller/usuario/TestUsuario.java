@@ -5,9 +5,11 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.medeiros.ordnael.controlefinanceiro.core.validacao.impl.ValidacaoCampoObrigatorio;
+import com.medeiros.ordnael.controlefinanceiro.repository.gasto.Gasto;
 import com.medeiros.ordnael.controlefinanceiro.repository.usuario.Usuario;
 import com.medeiros.ordnael.controlefinanceiro.repository.usuario.validacao.UsuarioEmailUnico;
 import com.medeiros.ordnael.controlefinanceiro.repository.usuario.validacao.UsuarioNomeAcessoUnico;
+import com.medeiros.ordnael.controlefinanceiro.repository.usuario.validacao.UsuarioSenhaObrigatorio;
 
 import junit.framework.TestCase;
 
@@ -74,6 +76,18 @@ public class TestUsuario extends TestCase {
 			assertTrue("Deu erro", true);
 		}
 		
+		usuario = this.createUsuarioValido();
+		usuario.setSenha(null);
+		
+		try {
+			entity = restTemplate.postForEntity(url, usuario, Usuario.class);
+			assertEquals(new UsuarioSenhaObrigatorio().getMensagem(), "sucesso");
+		} catch (HttpServerErrorException e) {
+			assertEquals(new UsuarioSenhaObrigatorio().getMensagem(), e.getResponseBodyAsString());
+		} catch (Exception e) {
+			assertTrue("Deu erro", true);
+		}
+		
 		
 		usuario = this.createUsuarioValido();
 		usuario.setEmail("ordnaelmedeiros@gmail.com");
@@ -87,40 +101,36 @@ public class TestUsuario extends TestCase {
 			assertTrue("Deu erro", true);
 		}
 		
-		
-		
-		/*
-		Gasto gasto = new Gasto();
-		gasto.setDescricao("Teste");
-		entity = restTemplate.postForEntity(url, gasto, Gasto.class);
+		Usuario usuNome = this.createUsuarioValido();
+		entity = restTemplate.postForEntity(url, usuNome, Usuario.class);
 		
 		assertNotNull(entity);
 		
-		Gasto gastoSalvo = entity.getBody();
+		Usuario usuSalvo = entity.getBody();
 		
-		assertNotNull(gastoSalvo);
-		assertNotNull(gastoSalvo.getId());
-		assertEquals(gasto.getDescricao(), gastoSalvo.getDescricao());
+		assertNotNull(usuSalvo);
+		assertNotNull(usuSalvo.getId());
+		assertEquals(usuNome.getNomeacesso(), usuSalvo.getNomeacesso());
 		
-		gastoSalvo.setDescricao(gastoSalvo.getDescricao() + " 11");
+		usuSalvo.setNomeacesso(usuSalvo.getNomeacesso() + " 11");
 		
-		restTemplate.put(url, gastoSalvo);
+		restTemplate.put(url, usuSalvo);
 		
-		entity = restTemplate.getForEntity(url+"/{id}", Gasto.class, gastoSalvo.getId());
+		entity = restTemplate.getForEntity(url+"/{id}", Usuario.class, usuSalvo.getId());
 		assertNotNull(entity);
 		
-		Gasto gastoAlterado = entity.getBody();
+		Usuario usuAlterado = entity.getBody();
 		
-		assertNotNull(gastoAlterado);
-		assertNotNull(gastoAlterado.getId());
-		assertEquals(gastoSalvo.getDescricao(), gastoAlterado.getDescricao());
+		assertNotNull(usuAlterado);
+		assertNotNull(usuAlterado.getId());
+		assertEquals(usuSalvo.getNomeacesso(), usuAlterado.getNomeacesso());
 		
-		restTemplate.delete(url+"/{id}", gastoAlterado.getId());
+		restTemplate.delete(url+"/{id}", usuAlterado.getId());
 		
-		entity = restTemplate.getForEntity(url+"/{id}", Gasto.class, gastoSalvo.getId());
+		entity = restTemplate.getForEntity(url+"/{id}", Usuario.class, usuSalvo.getId());
 		assertNotNull(entity);
 		assertNull(entity.getBody());
-		*/
+		
 	}
 	
 }

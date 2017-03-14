@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.medeiros.ordnael.controlefinanceiro.core.validacao.CampoInfo;
 
 @Table
@@ -27,7 +26,6 @@ public class Usuario {
 	@CampoInfo(descricao="Email", obrigatorio=true)
 	private String email;
 	
-	@JsonIgnore
 	@Column(length=64)
 	@CampoInfo(descricao="Senha")
 	private String senha;

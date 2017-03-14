@@ -15,21 +15,28 @@ public class ValidacaoCampoObrigatorio<Model> extends Validacao<Model> {
 	@Override
 	public void validar(Resource<Model> res, Model model) throws Exception {
 
-		if (model!=null) {
-			Field[] declaredFields = model.getClass().getDeclaredFields();
-			for (Field field : declaredFields) {
-				if (field.isAnnotationPresent(CampoInfo.class)) {
-					CampoInfo info = field.getAnnotation(CampoInfo.class);
-					if (info.obrigatorio()) {
-						field.setAccessible(true);
-						Object object = field.get(model);
-						if (object==null) {
-							throw new Exception(this.getMensagem() + info.descricao());
+		try {
+			
+			if (model!=null) {
+				Field[] declaredFields = model.getClass().getDeclaredFields();
+				for (Field field : declaredFields) {
+					if (field.isAnnotationPresent(CampoInfo.class)) {
+						CampoInfo info = field.getAnnotation(CampoInfo.class);
+						if (info.obrigatorio()) {
+							field.setAccessible(true);
+							Object object = field.get(model);
+							if (object==null) {
+								throw new Exception(this.getMensagem() + info.descricao());
+							}
 						}
 					}
 				}
 			}
+			
+		} catch (Exception e) {
+			throw e;
 		}
+		
 		
 	}
 

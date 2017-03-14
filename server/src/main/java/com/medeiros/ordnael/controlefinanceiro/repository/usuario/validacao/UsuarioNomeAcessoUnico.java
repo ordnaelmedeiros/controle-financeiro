@@ -18,18 +18,25 @@ public class UsuarioNomeAcessoUnico extends Validacao<Usuario> {
 	@Override
 	public void validar(Resource<Usuario> res, Usuario model) throws Exception {
 		
-		Criteria buscaMesmoNomeAcesso = res.createCriteria()
-			.add(Restrictions.ilike("nomeacesso", model.getNomeacesso()));
-		
-		if (model.getId()!=null) {
-			buscaMesmoNomeAcesso.add(Restrictions.ne("id", model.getId()));
+		try {
+			
+			Criteria buscaMesmoNomeAcesso = res.createCriteria()
+				.add(Restrictions.ilike("nomeacesso", model.getNomeacesso()));
+			
+			if (model.getId()!=null) {
+				buscaMesmoNomeAcesso.add(Restrictions.ne("id", model.getId()));
+			}
+			
+			List<?> list = buscaMesmoNomeAcesso.list();
+			
+			if (list!=null && list.size()>0) {
+				throw new Exception(this.getMensagem());
+			}
+			
+		} catch (Exception e) {
+			throw e;
 		}
 		
-		List<?> list = buscaMesmoNomeAcesso.list();
-		
-		if (list!=null && list.size()>0) {
-			throw new Exception(this.getMensagem());
-		}
 		
 	}
 

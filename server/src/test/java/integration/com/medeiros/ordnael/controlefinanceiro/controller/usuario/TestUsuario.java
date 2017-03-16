@@ -5,7 +5,6 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.medeiros.ordnael.controlefinanceiro.core.validacao.impl.ValidacaoCampoObrigatorio;
-import com.medeiros.ordnael.controlefinanceiro.repository.gasto.Gasto;
 import com.medeiros.ordnael.controlefinanceiro.repository.usuario.Usuario;
 import com.medeiros.ordnael.controlefinanceiro.repository.usuario.validacao.UsuarioEmailUnico;
 import com.medeiros.ordnael.controlefinanceiro.repository.usuario.validacao.UsuarioNomeAcessoUnico;

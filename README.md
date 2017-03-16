@@ -26,7 +26,7 @@ POST	http://localhost:8080/controlefinanceiro/gasto/grupo<br/>
 PUT		http://localhost:8080/controlefinanceiro/gasto/grupo<br/>
 REMOVE	http://localhost:8080/controlefinanceiro/gasto/grupo/{id}<br/>
 <br/>
-GastoGrupo<br/>
+GastoSubGrupo<br/>
 GET		http://localhost:8080/controlefinanceiro/gasto/grupo/{grupoId}/sub<br/>
 GET		http://localhost:8080/controlefinanceiro/gasto/grupo/{grupoId}/sub/{id}<br/>
 POST	http://localhost:8080/controlefinanceiro/gasto/grupo/{grupoId}/sub<br/>

@@ -8,17 +8,8 @@
 	<artifactId>controlefinanceiro</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>WildFly Quickstart: jaxrs-client</name>
-	<description>JAX-RS Client API example</description>
-
-	<url>http://www.wildfly.org</url>
-	<licenses>
-		<license>
-			<name>Apache License, Version 2.0</name>
-			<distribution>repo</distribution>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-		</license>
-	</licenses>
+	<name>Controle Financeiro</name>
+	<description>Controle Financeiro</description>
 
 	<properties>
 		<!-- Explicitly declaring the source encoding eliminates the following 
@@ -35,7 +26,6 @@
 		<version.jboss.bom>10.1.0.Final</version.jboss.bom>
 
 		<!-- other plug-in versions -->
-		<version.surefire.plugin>2.16</version.surefire.plugin>
 		<version.war.plugin>3.0.0</version.war.plugin>
 
 		<!-- Apache versions -->
@@ -198,46 +188,4 @@
 		</plugins>
 	</build>
 
-	<profiles>
-		<profile>
-			<!-- The default profile skips all tests, though you can tune it to run 
-				just unit tests based on a custom pattern -->
-			<!-- Separate profiles are provided for running all tests, including Arquillian 
-				tests that execute in the specified container -->
-			<id>default</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>${version.surefire.plugin}</version>
-						<configuration>
-							<skip>true</skip>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
-		<profile>
-
-			<!-- An optional testing profile that executes JAX-RS Client API tests -->
-			<!-- Run with: mvn clean test -Prest-client -->
-			<id>rest-client</id>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>${version.surefire.plugin}</version>
-						<configuration>
-							<skip>false</skip>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
-	</profiles>
 </project>

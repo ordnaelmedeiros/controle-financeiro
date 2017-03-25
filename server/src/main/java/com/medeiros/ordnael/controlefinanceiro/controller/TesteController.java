@@ -1,4 +1,4 @@
-package com.medeiros.ordnael.controlefinanceiro.rest;
+package com.medeiros.ordnael.controlefinanceiro.controller;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

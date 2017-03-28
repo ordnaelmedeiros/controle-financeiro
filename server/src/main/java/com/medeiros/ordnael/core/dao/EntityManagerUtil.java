@@ -1,14 +1,12 @@
 package com.medeiros.ordnael.core.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
+import javax.persistence.Table;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
-import com.medeiros.ordnael.controlefinanceiro.model.Gasto;
-import com.medeiros.ordnael.controlefinanceiro.model.GastoGrupo;
-import com.medeiros.ordnael.controlefinanceiro.model.GastoSubGrupo;
-import com.medeiros.ordnael.controlefinanceiro.model.Usuario;
 
 public class EntityManagerUtil {
 
@@ -17,10 +15,6 @@ public class EntityManagerUtil {
 	static {
 		
 		Configuration cfg = new Configuration()
-			    .addAnnotatedClass(Usuario.class)
-			    .addAnnotatedClass(Gasto.class)
-			    .addAnnotatedClass(GastoGrupo.class)
-			    .addAnnotatedClass(GastoSubGrupo.class)
 			    
 			    .setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect")
 			    
@@ -37,6 +31,17 @@ public class EntityManagerUtil {
 			    .setProperty("hibernate.hbm2ddl.auto", "update")
 			    .setProperty("hibernate.format_sql", "true")
 				.setProperty("hibernate.show_sql", "true");
+		
+		try {
+			List<Class<?>> classes = new ListaDeClasses("com.medeiros.ordnael.controlefinanceiro.model").getClasses();
+			for (Class<?> classe : classes) {
+				if (classe.isAnnotationPresent(Table.class)) {
+					cfg.addAnnotatedClass(classe);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		sessions = cfg.buildSessionFactory();
 		

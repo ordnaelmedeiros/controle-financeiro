@@ -4,10 +4,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 import com.medeiros.ordnael.controlefinanceiro.model.GastoSubGrupo;
-import com.medeiros.ordnael.core.rest.Controller;
+import com.medeiros.ordnael.core.rest.ControllerCRUD;
 
 @Path("/gasto/grupo/{gastoGrupoId}/sub")
-public class GastoSubGrupoController extends Controller<GastoSubGrupo, GastoSubGrupoResource> {
+public class GastoSubGrupoController extends ControllerCRUD<GastoSubGrupo, GastoSubGrupoResource> {
 	
 	@PathParam("gastoGrupoId")
 	private Long gastoGrupoId;

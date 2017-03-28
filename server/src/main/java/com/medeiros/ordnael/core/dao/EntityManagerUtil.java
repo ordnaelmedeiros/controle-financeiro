@@ -34,7 +34,7 @@ public class EntityManagerUtil {
 			    .setProperty("hibernate.c3p0.timeout", "1800")
 			    .setProperty("hibernate.c3p0.max_statements", "50")
 			    
-			    .setProperty("hibernate.hbm2ddl.auto", "create")
+			    .setProperty("hibernate.hbm2ddl.auto", "update")
 			    .setProperty("hibernate.format_sql", "true")
 				.setProperty("hibernate.show_sql", "true");
 		

@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 
 import com.medeiros.ordnael.core.resource.ResourceCRUD;
 
-public abstract class Controller<Model, R extends ResourceCRUD<Model>> {
+public abstract class ControllerCRUD<Model, R extends ResourceCRUD<Model>> {
 
 	public abstract R newResource();
 	

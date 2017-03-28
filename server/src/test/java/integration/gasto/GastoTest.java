@@ -1,4 +1,4 @@
-package integration.usuario;
+package integration.gasto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import org.junit.Assert;
 
 import com.medeiros.ordnael.controlefinanceiro.model.Gasto;
-import com.medeiros.ordnael.controlefinanceiro.model.Usuario;
 
 import integration.TesteCrud;
 

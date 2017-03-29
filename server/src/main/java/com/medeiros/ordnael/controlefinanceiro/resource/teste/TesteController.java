@@ -1,6 +1,5 @@
 package com.medeiros.ordnael.controlefinanceiro.resource.teste;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.ws.rs.GET;

@@ -1,15 +1,16 @@
 package integration.teste;
 
+import static org.junit.Assert.assertNotNull;
+
 import javax.ws.rs.client.ClientBuilder;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
 
-import com.medeiros.ordnael.controlefinanceiro.model.ObjetoTeste;
+import com.medeiros.ordnael.casa.model.ObjetoTeste;
 
 public class TesteRestClientTest {
 	
-	private final String url = "http://localhost:8080/controlefinanceiro/rest/teste/json";
+	private final String url = "http://localhost:8080/casa/rest/teste/json";
 	
 	@Test
 	public void getObjeto() {

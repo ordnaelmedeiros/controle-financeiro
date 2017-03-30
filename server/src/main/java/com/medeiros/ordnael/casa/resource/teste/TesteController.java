@@ -1,4 +1,4 @@
-package com.medeiros.ordnael.controlefinanceiro.resource.teste;
+package com.medeiros.ordnael.casa.resource.teste;
 
 import java.time.LocalDateTime;
 
@@ -7,7 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.medeiros.ordnael.controlefinanceiro.model.ObjetoTeste;
+import com.medeiros.ordnael.casa.model.ObjetoTeste;
 
 @Path("/teste")
 public class TesteController {

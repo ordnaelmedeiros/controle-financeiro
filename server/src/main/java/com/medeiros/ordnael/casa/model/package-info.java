@@ -1,7 +1,7 @@
 @XmlJavaTypeAdapters({
 	@XmlJavaTypeAdapter(type=LocalDate.class,  value=LocalDateAdapter.class),
 })
-package com.medeiros.ordnael.controlefinanceiro.model;
+package com.medeiros.ordnael.casa.model;
 
 import java.time.LocalDate;
 

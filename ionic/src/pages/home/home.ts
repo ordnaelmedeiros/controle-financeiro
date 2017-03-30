@@ -48,13 +48,13 @@ export class HomePage {
     if (this.network!=null && this.network.type!=null) {
       url= "http://35.167.76.29:8080/controlefinanceiro/rest/teste/json";
     } else {
-      url= "http://35.167.76.29:8080/controlefinanceiro/rest/teste/json";
+      url= "http://localhost:8080/controlefinanceiro/rest/teste/json";
     }
 
      
     //this.http.get(url).map(res => this.resposta += " - Veio Resposta");
 
-    this.http.get(url).timeout(1000).subscribe((response) => {
+    this.http.get(url).timeout(10000).subscribe((response) => {
         this.resposta += " - Veio Resposta!";
         this.retorno = response.text();
         this.retorno2 = response.json().vString + " - " + response.json().vLocalDate;

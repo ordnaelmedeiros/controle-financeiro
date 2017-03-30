@@ -1,4 +1,4 @@
-package com.medeiros.ordnael.controlefinanceiro.model;
+package com.medeiros.ordnael.casa.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

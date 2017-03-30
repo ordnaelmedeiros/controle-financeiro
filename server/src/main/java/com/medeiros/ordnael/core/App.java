@@ -13,6 +13,16 @@ public class App extends Application {
 	
 	public App() {
 		
+		try {
+			
+			//String path= System.getProperty("user.dir");
+			
+			//System.out.println("path: " + path);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		teste ++;
 		if (teste==1) {
 			try  {

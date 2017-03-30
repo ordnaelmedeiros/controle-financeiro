@@ -1,4 +1,4 @@
-package com.medeiros.ordnael.controlefinanceiro.model;
+package com.medeiros.ordnael.casa.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

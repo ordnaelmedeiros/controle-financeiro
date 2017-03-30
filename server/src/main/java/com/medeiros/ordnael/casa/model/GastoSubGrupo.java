@@ -1,18 +1,24 @@
-package com.medeiros.ordnael.controlefinanceiro.model;
+package com.medeiros.ordnael.casa.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Table
 @Entity
-public class GastoGrupo {
+public class GastoSubGrupo {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(length=5)
@@ -20,7 +26,12 @@ public class GastoGrupo {
 	
 	@Column(length=200)
 	private String descricao;
-
+	
+	@JsonIgnore
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="gastoGrupoId", foreignKey=@ForeignKey(name="fk_GastoSubGrupo_GastoGrupo"))
+	private GastoGrupo gastoGrupo;
+	
 	public Long getId() {
 		return id;
 	}
@@ -44,5 +55,13 @@ public class GastoGrupo {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+
+	public GastoGrupo getGastoGrupo() {
+		return gastoGrupo;
+	}
+
+	public void setGastoGrupo(GastoGrupo gastoGrupo) {
+		this.gastoGrupo = gastoGrupo;
+	}
+
 }

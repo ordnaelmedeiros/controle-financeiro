@@ -18,7 +18,7 @@ public abstract class TesteCrud<Model> {
 	protected abstract void alterarObjeto(Model obj);
 	
 	private String getUrl() {
-		return "http://localhost:8080/controlefinanceiro/rest/"+this.getUrlName();
+		return "http://localhost:8080/casa/rest/"+this.getUrlName();
 	}
 	
 	@Test

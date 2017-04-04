@@ -2,7 +2,7 @@ package integration.gasto;
 
 import org.junit.Assert;
 
-import com.medeiros.ordnael.controlefinanceiro.model.GastoSubGrupo;
+import com.medeiros.ordnael.casa.entity.GastoSubGrupo;
 
 import integration.TesteCrud;
 

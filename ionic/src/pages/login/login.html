@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Acesso
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  
+  <ion-card color="danger" [hidden]="!showMsgErro">
+    <ion-card-header>
+      Erro
+    </ion-card-header>
+    <ion-card-content>
+      {{msgErro}}
+    </ion-card-content>
+  </ion-card>
+
+  <form [formGroup]="cadastro" (ngSubmit)="salvar()">
+    <ion-list>
+      <ion-item>
+        <ion-icon name='person' item-left></ion-icon>
+        <ion-input name="usuario" formControlName="usuario" type="text" placeholder="Usuário" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name='key' item-left></ion-icon>
+        <ion-input name="senha" formControlName="senha" type="password" placeholder="Senha" required></ion-input>
+      </ion-item>
+
+      <button ion-button block icon-left color="verde" type="submit">
+        <ion-icon name="log-in"></ion-icon>
+        Acessar
+      </button>
+    </ion-list>
+  </form>
+
+  <button  ion-button block icon-left color="light">
+    <ion-icon name="person-add"></ion-icon>
+    Cadastrar-se
+  </button>
+
+</ion-content>
+
+
+ 

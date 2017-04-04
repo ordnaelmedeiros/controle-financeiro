@@ -5,8 +5,8 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.medeiros.ordnael.controlefinanceiro.model.Gasto;
-import com.medeiros.ordnael.controlefinanceiro.model.Usuario;
+import com.medeiros.ordnael.casa.entity.Gasto;
+import com.medeiros.ordnael.casa.entity.Usuario;
 
 public class ListaDeClassesTest {
 
@@ -15,7 +15,7 @@ public class ListaDeClassesTest {
 		
 		try {
 				
-			String packageName = "com.medeiros.ordnael.controlefinanceiro.model";
+			String packageName = "com.medeiros.ordnael.casa.entity";
 			
 			List<Class<?>> classes = new ListaDeClasses(packageName).getClasses();
 			

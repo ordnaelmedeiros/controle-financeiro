@@ -17,14 +17,16 @@ public class ListaDeClasses {
 	public List<Class<?>> getClasses() throws Exception {
 
 		try {
-
+			
 			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 			assert classLoader != null;
 			String path = packageName.replace('.', '/');
 			Enumeration<URL> resources = classLoader.getResources(path);
+			
 			List<File> dirs = new ArrayList<File>();
 			while (resources.hasMoreElements()) {
 				URL resource = resources.nextElement();
+				System.out.println("url: " + resource.getPath());
 				dirs.add(new File(resource.getFile()));
 			}
 			ArrayList<Class<?>> classes = new ArrayList<Class<?>>();
@@ -44,10 +46,15 @@ public class ListaDeClasses {
 		
 		List<Class<?>> classes = new ArrayList<Class<?>>();
 		if (!directory.exists()) {
+			System.out.println("Não é um diretorio");
 			return classes;
 		}
 		File[] files = directory.listFiles();
+		System.out.println("quantidade de arquivos: " + files.length);
 		for (File file : files) {
+			
+			System.out.println("arquivo: " + file.getName());
+			
 			if (file.isDirectory()) {
 				assert !file.getName().contains(".");
 				classes.addAll(findClasses(file, packageName + "." + file.getName()));

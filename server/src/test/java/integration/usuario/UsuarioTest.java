@@ -2,7 +2,7 @@ package integration.usuario;
 
 import org.junit.Assert;
 
-import com.medeiros.ordnael.controlefinanceiro.model.Usuario;
+import com.medeiros.ordnael.casa.entity.Usuario;
 
 import integration.TesteCrud;
 
@@ -25,23 +25,21 @@ public class UsuarioTest extends TesteCrud<Usuario> {
 	
 	@Override
 	protected void assertCompara(Usuario obj1, Usuario obj2) {
-		Assert.assertEquals(obj1.getNomeacesso(), obj2.getNomeacesso());
+		Assert.assertEquals(obj1.getNome(), obj2.getNome());
 		Assert.assertEquals(obj1.getEmail(), obj2.getEmail());
-		Assert.assertEquals(obj1.getSenha(), obj2.getSenha());
 	}
 
 	@Override
 	protected Usuario getObjGravar() {
 		Usuario usuSalvar = new Usuario();
-		usuSalvar.setNomeacesso("teste");
+		usuSalvar.setNome("teste");
 		usuSalvar.setEmail("teste@teste.com");
-		usuSalvar.setSenha("123456");
 		return usuSalvar;
 	}
 
 	@Override
 	protected void alterarObjeto(Usuario obj) {
-		obj.setNomeacesso("teste2");
+		obj.setNome("teste2");
 	}
 
 }

@@ -9,6 +9,8 @@ import { HomePage } from '../pages/home/home';
 import { ValidacaoPage } from '../pages/validacao/validacao';
 import { Config } from '../app/core/config/config';
 import { Banco } from '../app/core/banco/banco-resource';
+import { UsuarioResource } from '../app/core/banco/resource/usuario-resource';
+import { SessaoResource } from '../app/core/banco/resource/sessao-resource';
 
 import { LoginPage } from '../pages/login/login';
 
@@ -74,7 +76,7 @@ export class MyApp {
     this.banco.iniciarBanco(this.config, (sucesso, msg) => {
       
       if (sucesso) {
-        this.abrirLogin();
+        this.carregarUsuario();
       } else {
         let alert = this.alertCtrl.create({
             title: 'Erro',
@@ -86,6 +88,52 @@ export class MyApp {
 
     });
 
+  }
+
+  private carregarUsuario() {
+
+    if (this.config.isMobile) {
+      new UsuarioResource(this.banco).buscar(
+        (usuario) => {
+          if (usuario!=null) {
+            this.config.usuario = usuario;
+
+            new SessaoResource(this.banco).buscar(
+              (sessao) => {
+                if (sessao!=null) {
+                  this.config.sessao = sessao;
+                  this.abrirHome();
+                } else {
+                  this.abrirLogin();
+                }
+                //this.validarPlataforma();
+              }, (error) => {
+                let alert = this.alertCtrl.create({
+                    title: 'Erro',
+                    subTitle: error,
+                    buttons: ['OK']
+                });
+                alert.present();
+              }
+            );
+
+          } else {
+            this.abrirLogin();
+          }
+          //this.validarPlataforma();
+        }, (error) => {
+          let alert = this.alertCtrl.create({
+              title: 'Erro',
+              subTitle: error,
+              buttons: ['OK']
+          });
+          alert.present();
+        }
+      );
+    } else {
+      this.abrirLogin();
+    }
+    
   }
 
   private validaWifi() {
@@ -102,6 +150,14 @@ export class MyApp {
     this.splashScreen.hide();
     this.loader.dismiss();
     this.rootPage = LoginPage;
+    this.config.terminouLogin = () => {
+      this.abrirHome();
+    }
+  }
+
+  public abrirHome() {
+    this.loader.dismiss();
+    this.rootPage = HomePage;
   }
 
 }

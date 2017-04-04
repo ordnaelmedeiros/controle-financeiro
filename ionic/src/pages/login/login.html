@@ -18,11 +18,11 @@
     </ion-card-content>
   </ion-card>
 
-  <form [formGroup]="cadastro" (ngSubmit)="salvar()">
+  <form [formGroup]="cadastro" (ngSubmit)="logar()">
     <ion-list>
       <ion-item>
         <ion-icon name='person' item-left></ion-icon>
-        <ion-input name="usuario" formControlName="usuario" type="text" placeholder="Usuário" required></ion-input>
+        <ion-input name="nomeacesso" formControlName="nomeacesso" type="text" placeholder="Usuário" required></ion-input>
       </ion-item>
 
       <ion-item>

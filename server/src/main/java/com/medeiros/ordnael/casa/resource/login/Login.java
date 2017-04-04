@@ -1,17 +1,20 @@
 package com.medeiros.ordnael.casa.resource.login;
 
+import com.medeiros.ordnael.casa.entity.Usuario;
+
 public class Login {
 	
-	private String usuario;
+	private String nomeacesso;
 	private String senha;
 	private String usertoken;
 	private String sessaotoken;
+	private Usuario usuario;
 	
-	public String getUsuario() {
-		return usuario;
+	public String getNomeacesso() {
+		return nomeacesso;
 	}
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setNomeacesso(String acesso) {
+		this.nomeacesso = acesso;
 	}
 	public String getSenha() {
 		return senha;
@@ -30,6 +33,12 @@ public class Login {
 	}
 	public void setSessaotoken(String sessaotoken) {
 		this.sessaotoken = sessaotoken;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 }

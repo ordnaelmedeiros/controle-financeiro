@@ -29,4 +29,59 @@ export class SessaoResource {
 
     }
 
+    
+    public gravar(ses:Sessao, callBackSucesso, callBackErro) {
+
+        let arr = [ses.usertoken, ses.sessaotoken];
+
+        this.banco.sql.executeSql(
+            `select * from sessao`,[]
+        ).then((dataSel) => {
+            
+            if (dataSel.rows.length==0) {
+                
+                this.banco.sql.executeSql(
+                    `insert into sessao (usertoken, sessaotoken) values (?, ?)`, arr
+                ).then((data) => {
+                    callBackSucesso();
+                }).catch((error) => {
+                    callBackErro('Erro ao gravar Sessão.');
+                });
+
+            } else {
+
+                this.banco.sql.executeSql(
+                    `update sessao set usertoken = ?, sessaotoken = ?`, arr
+                ).then((data) => {
+                    callBackSucesso();
+                }).catch((error) => {
+                    callBackErro('Erro ao gravar Sessão..');
+                });
+
+            }
+
+        }).catch((error) => {
+            callBackErro('Erro ao gravar Sessão');
+        });
+
+    }
+
+    public buscar(callBackSucesso, callBackErro) {
+
+        this.banco.sql.executeSql(
+            `select * from sessao`,[]
+        ).then((dataSel) => {
+            
+            if (dataSel.rows.length==0) {
+                callBackSucesso(null);
+            } else {
+                callBackSucesso(dataSel.rows.item(0));
+            }
+
+        }).catch((error) => {
+            callBackErro('Erro ao Buscar Sessão');
+        });
+
+    }
+
 }

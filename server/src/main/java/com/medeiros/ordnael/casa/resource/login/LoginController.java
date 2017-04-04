@@ -14,8 +14,10 @@ import javax.ws.rs.core.Response.Status;
 
 import com.medeiros.ordnael.casa.entity.Acesso;
 import com.medeiros.ordnael.casa.entity.Sessao;
+import com.medeiros.ordnael.casa.entity.Usuario;
 import com.medeiros.ordnael.casa.resource.acesso.AcessoResource;
 import com.medeiros.ordnael.casa.resource.sessao.SessaoResource;
+import com.medeiros.ordnael.casa.resource.usuario.UsuarioResource;
 import com.medeiros.ordnael.core.crypto.Crypto;
 
 @Path("/login")
@@ -31,7 +33,7 @@ public class LoginController {
 		
 		try (AcessoResource acessoRes = new AcessoResource()) {
 			
-			Acesso acesso = acessoRes.buscaPorNomeDeAcesso(login.getUsuario());
+			Acesso acesso = acessoRes.buscaPorNomeDeAcesso(login.getNomeacesso());
 			
 			if (acesso==null) {
 				return this.statusLoginOuSenhaInvalidos();
@@ -54,8 +56,12 @@ public class LoginController {
 				SessaoResource sessaoResource = new SessaoResource(acessoRes);
 				sessaoResource.incluir(sessao);
 				
+				UsuarioResource usuarioResource = new UsuarioResource(acessoRes);
+				Usuario usuario = usuarioResource.buscarPeloAcesso(acesso);
+				
 				login.setUsertoken(acesso.getToken());
 				login.setSessaotoken(sessao.getToken());
+				login.setUsuario(usuario);
 				
 				return Response.ok(login).build();
 				

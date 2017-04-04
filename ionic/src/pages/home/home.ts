@@ -4,7 +4,6 @@ import {
   ModalController
 } from 'ionic-angular';
 import { Config } from '../../app/core/config/config';
-import { ValidacaoPage } from '../../pages/validacao/validacao';
 
 @Component({
   selector: 'page-home',
@@ -18,16 +17,14 @@ export class HomePage {
     private config:Config
   ) {
     
-    if (!this.config.isValidado) {
-      let modal = this.modalCtrl.create(ValidacaoPage);
-      let temp = this;
-      modal.present();
-    }
-
   }
 
   procuraServidor() {
      
+  }
+
+  clickTeste() {
+    
   }
 
 }

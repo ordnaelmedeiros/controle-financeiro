@@ -21,7 +21,7 @@ public abstract class TesteCrud<Model> {
 		return "http://localhost:8080/casa/rest/"+this.getUrlName();
 	}
 	
-	@Test
+	//@Test
 	public void crudTest() {
 		
 		//gravar

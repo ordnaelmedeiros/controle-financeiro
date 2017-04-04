@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Casa
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item>
+    <ion-label>URL: {{url}}</ion-label>
+  </ion-item>
+
+  <ion-list no-border>
+
+    <ion-list-header>
+      Validação {{this.contador}}
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>Plataforma:</ion-label>
+      <ion-icon [hidden]="isMobile" name='logo-chrome' item-right color="verde"></ion-icon>
+      <ion-icon [hidden]="!isMobile" name='logo-android' item-right color="verde"></ion-icon>
+    </ion-item>
+
+    <ion-item [hidden]="!isMobile">
+      <ion-label>WiFi:</ion-label>
+      <ion-icon [hidden]="isWifi" name='ios-wifi' item-right color="vermelho"></ion-icon>
+      <ion-icon [hidden]="!isWifi" name='ios-wifi' item-right color="verde"></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Login:</ion-label>
+      <ion-icon [hidden]="!isLogado" name='person' item-right color="verde"></ion-icon>
+      <ion-icon [hidden]="isLogado" name='person' item-right color="vermelho"></ion-icon>
+    </ion-item>
+
+    <!--ion-item>
+      <button ion-button block color="danger">Teste</button>
+    </ion-item-->
+
+  </ion-list>
+
+</ion-content>
+
+
+ 

@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 import org.junit.Assert;
 
-import com.medeiros.ordnael.casa.model.Gasto;
+import com.medeiros.ordnael.casa.entity.Gasto;
 
 import integration.TesteCrud;
 

@@ -2,7 +2,7 @@ package com.medeiros.ordnael.casa.resource.gasto.grupo;
 
 import javax.ws.rs.Path;
 
-import com.medeiros.ordnael.casa.model.GastoGrupo;
+import com.medeiros.ordnael.casa.entity.GastoGrupo;
 import com.medeiros.ordnael.core.rest.ControllerCRUD;
 
 @Path("/gasto/grupo")

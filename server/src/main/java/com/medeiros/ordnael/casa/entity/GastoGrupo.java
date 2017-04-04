@@ -1,4 +1,4 @@
-package com.medeiros.ordnael.casa.model;
+package com.medeiros.ordnael.casa.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table
+//@Table
 @Entity
 public class GastoGrupo {
 

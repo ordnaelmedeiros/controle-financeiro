@@ -3,6 +3,7 @@ package com.medeiros.ordnael.core.rest;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -15,12 +16,14 @@ import javax.ws.rs.core.Response;
 
 import com.medeiros.ordnael.core.resource.ResourceCRUD;
 
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public abstract class ControllerCRUD<Model, R extends ResourceCRUD<Model>> {
 
 	public abstract R newResource();
 	
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/")
 	public List<Model> get() throws Exception {
 		try (R res = this.newResource()) {
 			return res.buscaTotos();
@@ -31,7 +34,6 @@ public abstract class ControllerCRUD<Model, R extends ResourceCRUD<Model>> {
 	
 	@GET
 	@Path("/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Model get(@PathParam("id") Long id) throws Exception {
 		try (R res = this.newResource()) {
 			Model usuario = res.busca(id);
@@ -42,10 +44,10 @@ public abstract class ControllerCRUD<Model, R extends ResourceCRUD<Model>> {
 	}
 	
 	@POST
-	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/")
 	public Model post(Model model) throws Exception {
 		try (R res = this.newResource()) {
-			res.gravar(model);
+			res.incluir(model);
 			return model;
 		} catch (Exception e) {
 			throw e;
@@ -53,7 +55,7 @@ public abstract class ControllerCRUD<Model, R extends ResourceCRUD<Model>> {
 	}
 	
 	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/")
 	public Model put(Model model) throws Exception {
 		try (R res = this.newResource()) {
 			res.alterar(model);
@@ -65,7 +67,6 @@ public abstract class ControllerCRUD<Model, R extends ResourceCRUD<Model>> {
 
 	@DELETE
 	@Path("/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response delete(@PathParam("id") Long id) throws Exception {
 		try (R res = this.newResource()) {
 			res.remover(id);

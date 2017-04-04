@@ -170,6 +170,13 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-email -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.4</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -191,6 +198,19 @@
 				<groupId>org.wildfly.plugins</groupId>
 				<artifactId>wildfly-maven-plugin</artifactId>
 				<version>${version.wildfly.maven.plugin}</version>
+				<configuration>
+					<hostname>35.167.76.29</hostname>
+					<username>leandro</username>
+					<password>Leando@13</password>
+				</configuration>
+				<executions>
+					<execution>
+<!-- 						<phase>package</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>deploy</goal> -->
+<!-- 						</goals> -->
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

@@ -1,4 +1,4 @@
-package com.medeiros.ordnael.casa.model;
+package com.medeiros.ordnael.casa.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Table
+//@Table
 @Entity
 public class Gasto {
  

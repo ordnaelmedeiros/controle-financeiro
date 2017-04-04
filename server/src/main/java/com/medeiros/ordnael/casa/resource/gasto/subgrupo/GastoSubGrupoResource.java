@@ -3,8 +3,8 @@ package com.medeiros.ordnael.casa.resource.gasto.subgrupo;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.medeiros.ordnael.casa.model.GastoGrupo;
-import com.medeiros.ordnael.casa.model.GastoSubGrupo;
+import com.medeiros.ordnael.casa.entity.GastoGrupo;
+import com.medeiros.ordnael.casa.entity.GastoSubGrupo;
 import com.medeiros.ordnael.casa.resource.gasto.grupo.GastoGrupoResource;
 import com.medeiros.ordnael.core.resource.ResourceCRUD;
 import com.medeiros.ordnael.core.rest.Filtro;

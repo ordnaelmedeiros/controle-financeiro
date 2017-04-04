@@ -1,4 +1,4 @@
-package com.medeiros.ordnael.casa.model;
+package com.medeiros.ordnael.casa.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

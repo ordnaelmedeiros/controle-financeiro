@@ -12,7 +12,7 @@ public abstract class ResourceCRUD<Model> implements AutoCloseable {
 	
 	private EntityManager em = null;
 	
-	private EntityManager getEm() {
+	protected EntityManager getEm() {
 		if (this.em==null) {
 			this.em = EntityManagerUtil.getEntityManager();
 		}
@@ -65,6 +65,10 @@ public abstract class ResourceCRUD<Model> implements AutoCloseable {
 		
 	}
 	
+	public Model busca(Integer id) {
+		return this.busca(id.longValue());
+	}
+	
 	public Model busca(Long id) {
 		
 		Model usuario = this.getEm().find(this.getModelClass(), id);
@@ -72,7 +76,7 @@ public abstract class ResourceCRUD<Model> implements AutoCloseable {
 		
 	}
 	
-	public Model gravar(Model model) {
+	public Model incluir(Model model) {
 		
 		this.beginTransaction();
 		this.getEm().persist(model);

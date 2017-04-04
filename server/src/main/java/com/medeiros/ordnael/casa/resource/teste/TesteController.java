@@ -7,7 +7,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.medeiros.ordnael.casa.model.ObjetoTeste;
+import org.apache.commons.mail.EmailException;
+
+import com.medeiros.ordnael.casa.entity.ObjetoTeste;
+import com.medeiros.ordnael.core.email.Email;
 
 @Path("/teste")
 public class TesteController {
@@ -23,7 +26,13 @@ public class TesteController {
 	@Path("/html")
 	@Produces(MediaType.TEXT_HTML)
 	public String html() {
-		return "<html><body><h1>Teste</h1>teste 2</body></html>";
+		try {
+			new Email().sendEmail();
+			return "<html><body><h1>Teste</h1>teste 2</body></html>";
+		} catch (Exception e) {
+			return "<html><body><h1>Erro:</h1>"+e.getMessage()+"</body></html>";
+		}
+		
 	}
 	
 	@GET

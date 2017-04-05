@@ -41,7 +41,7 @@ export class MyApp {
       //splashScreen.hide();
       //this.rootPage = HomePage;
       this.loader = this.loadingCtrl.create({
-        content: "Por favor espere...",
+        content: "Por favor aguarde...",
         //duration: 3000
       });
       this.loader.present();

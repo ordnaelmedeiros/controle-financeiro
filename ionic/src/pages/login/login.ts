@@ -33,7 +33,7 @@ export class LoginPage {
       senha:['', Validators.required]
     });
     this.loader = this.loadingCtrl.create({
-      content: "Por favor espere...",
+      content: "Por favor aguarde...",
     });
     
   }
@@ -52,40 +52,45 @@ export class LoginPage {
         this.config.sessao.sessaotoken = obj.sessaotoken;
         this.config.usuario = obj.usuario;
         
-        new UsuarioResource(this.banco).gravar(this.config.usuario,
-          () => {
+        if (this.config.isMobile) {
+          new UsuarioResource(this.banco).gravar(this.config.usuario,
+            () => {
 
-            new SessaoResource(this.banco).gravar(this.config.sessao,
-              () => {
-                
-                this.config.terminouLogin();
-                this.loader.dismiss();
+              new SessaoResource(this.banco).gravar(this.config.sessao,
+                () => {
+                  
+                  this.config.terminouLogin();
+                  this.loader.dismiss();
 
-              }, (error) => {
+                }, (error) => {
 
-                this.loader.dismiss();
-                let alert = this.alertCtrl.create({
-                    title: 'Erro',
-                    subTitle: error, 
-                    buttons: ['OK']
-                });
-                alert.present();
+                  this.loader.dismiss();
+                  let alert = this.alertCtrl.create({
+                      title: 'Erro',
+                      subTitle: error, 
+                      buttons: ['OK']
+                  });
+                  alert.present();
 
-              }
-            )
+                }
+              )
 
-          },
-          (error) => {
+            },
+            (error) => {
 
-            this.loader.dismiss();
-            let alert = this.alertCtrl.create({
-                title: 'Erro',
-                subTitle: error, 
-                buttons: ['OK']
+              this.loader.dismiss();
+              let alert = this.alertCtrl.create({
+                  title: 'Erro',
+                  subTitle: error, 
+                  buttons: ['OK']
+              });
+              alert.present();
+
             });
-            alert.present();
-
-          })
+        } else {
+          this.config.terminouLogin();
+          this.loader.dismiss();
+        }
           
       }, (error) => {
 

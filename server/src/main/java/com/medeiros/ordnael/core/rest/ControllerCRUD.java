@@ -23,6 +23,13 @@ public abstract class ControllerCRUD<Model, R extends ResourceCRUD<Model>> {
 	public abstract R newResource();
 	
 	@GET
+	@Path("/help")
+	@Produces(MediaType.TEXT_HTML)
+	public String help() throws Exception {
+		return "<div><h1>Pagina Help</h1></div>";
+	}
+	
+	@GET
 	@Path("/")
 	public List<Model> get() throws Exception {
 		try (R res = this.newResource()) {

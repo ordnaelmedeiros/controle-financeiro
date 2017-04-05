@@ -4,13 +4,12 @@ import java.time.LocalDateTime;
 
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import com.medeiros.ordnael.casa.entity.Acesso;
 import com.medeiros.ordnael.casa.entity.Sessao;
@@ -19,24 +18,28 @@ import com.medeiros.ordnael.casa.resource.acesso.AcessoResource;
 import com.medeiros.ordnael.casa.resource.sessao.SessaoResource;
 import com.medeiros.ordnael.casa.resource.usuario.UsuarioResource;
 import com.medeiros.ordnael.core.crypto.Crypto;
+import com.medeiros.ordnael.core.rest.filters.RestException;
 
 @Path("/login")
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class LoginController {
 	
 	@Context
 	HttpServletRequest context;
 	
+	private RestException loginOuSenhaInvalidos = new RestException("Login ou Senha inválidos.");
+	
 	@SuppressWarnings("resource")
 	@POST
-	public Response logar(Login login) throws Exception {
+	public Login logar(Login login) throws RestException {
 		
 		try (AcessoResource acessoRes = new AcessoResource()) {
 			
 			Acesso acesso = acessoRes.buscaPorNomeDeAcesso(login.getNomeacesso());
 			
 			if (acesso==null) {
-				return this.statusLoginOuSenhaInvalidos();
+				throw loginOuSenhaInvalidos;
 			}
 			
 			String senhaCrypto = new Crypto().criptografar(login.getSenha());
@@ -63,28 +66,24 @@ public class LoginController {
 				login.setSessaotoken(sessao.getToken());
 				login.setUsuario(usuario);
 				
-				return Response.ok(login).build();
+				return login;
 				
 			} else {
 				
-				return this.statusLoginOuSenhaInvalidos();
+				throw loginOuSenhaInvalidos;
 				
 			}
 			
 		} catch (NoResultException e) {
 			
-			return this.statusLoginOuSenhaInvalidos();
+			throw loginOuSenhaInvalidos;
 			
 		} catch (Exception e) {
 			
-			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
+			throw new RestException(e.getMessage());
 			
 		}
 		
-	}
-	
-	private Response statusLoginOuSenhaInvalidos() {
-		return Response.status(Status.BAD_REQUEST).entity("Login ou Senha inválidos.").build();
 	}
 	
 }

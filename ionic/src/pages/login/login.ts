@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ViewController, LoadingController, Loading, AlertController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Config } from '../../app/core/config/config';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { Banco } from '../../app/core/banco/banco-resource';
 import { UsuarioResource } from '../../app/core/banco/resource/usuario-resource';
 import { SessaoResource } from '../../app/core/banco/resource/sessao-resource';
@@ -32,19 +32,29 @@ export class LoginPage {
       nomeacesso:['', Validators.required],
       senha:['', Validators.required]
     });
-    this.loader = this.loadingCtrl.create({
-      content: "Por favor aguarde...",
-    });
+    
     
   }
 
-  logar() {
-
+  private mostrarCarregando() {
+    this.loader = this.loadingCtrl.create({
+      content: "Por favor aguarde...",
+    });
     this.loader.present();
+  }
+
+  private logar() {
+
+    var vHeader = new Headers();
+    vHeader.append("Accept", "application/json");
+    vHeader.append("Content-Type", "application/json");
+
+
+    this.mostrarCarregando();
 
     this.showMsgErro = false;
 
-    this.http.post(this.config.url+"/rest/login", this.cadastro.value, null).subscribe(
+    this.http.post(this.config.url+"/rest/login", this.cadastro.value, {headers: vHeader}).subscribe(
       (response) => {
         
         let obj:any = response.json();
@@ -53,53 +63,50 @@ export class LoginPage {
         this.config.usuario = obj.usuario;
         
         if (this.config.isMobile) {
-          new UsuarioResource(this.banco).gravar(this.config.usuario,
-            () => {
-
-              new SessaoResource(this.banco).gravar(this.config.sessao,
-                () => {
-                  
-                  this.config.terminouLogin();
-                  this.loader.dismiss();
-
-                }, (error) => {
-
-                  this.loader.dismiss();
-                  let alert = this.alertCtrl.create({
-                      title: 'Erro',
-                      subTitle: error, 
-                      buttons: ['OK']
-                  });
-                  alert.present();
-
-                }
-              )
-
-            },
-            (error) => {
-
-              this.loader.dismiss();
-              let alert = this.alertCtrl.create({
-                  title: 'Erro',
-                  subTitle: error, 
-                  buttons: ['OK']
-              });
-              alert.present();
-
-            });
+          new UsuarioResource(this.banco).gravar(this.config.usuario, 
+          () => {
+            this.gravouUsuario();
+          }, (error) => {
+            this.exceptionErro(error);
+          });
         } else {
-          this.config.terminouLogin();
-          this.loader.dismiss();
+          this.terminarLogin();
         }
           
       }, (error) => {
-
-        this.msgErro = error.text();
-        this.showMsgErro = true;
-        this.loader.dismiss();
-
+        this.mostrarErro(error);
       });
 
+  }
+
+  private gravouUsuario() {
+    new SessaoResource(this.banco).gravar(this.config.sessao, 
+      () => {
+        this.terminarLogin();
+      }, (error) => {
+        this.exceptionErro(error);
+      });
+  }
+
+  private terminarLogin() {
+    this.config.terminouLogin();
+    this.loader.dismiss();
+  }
+
+  private exceptionErro(error) {
+    this.loader.dismiss();
+    let alert = this.alertCtrl.create({
+      title: 'Erro',
+      subTitle: error, 
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  private mostrarErro(error) {
+    this.msgErro = error.text();
+    this.showMsgErro = true;
+    this.loader.dismiss();
   }
 
 }

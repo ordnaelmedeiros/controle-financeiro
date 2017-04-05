@@ -2,19 +2,22 @@ package com.medeiros.ordnael.casa.resource.teste;
 
 import java.time.LocalDateTime;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.commons.mail.EmailException;
-
 import com.medeiros.ordnael.casa.entity.ObjetoTeste;
 import com.medeiros.ordnael.core.email.Email;
+import com.medeiros.ordnael.core.rest.RestSessao;
 
 @Path("/teste")
 public class TesteController {
 
+	@Inject
+	RestSessao sessao; 
+	
 	@GET
 	@Path("/ping")
 	@Produces(MediaType.TEXT_HTML)

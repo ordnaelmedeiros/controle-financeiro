@@ -1,11 +1,12 @@
 package com.medeiros.ordnael.core;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Table;
+import javax.servlet.ServletContext;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
+import javax.ws.rs.core.Context;
 
 import com.medeiros.ordnael.casa.entity.Acesso;
 import com.medeiros.ordnael.casa.entity.Usuario;
@@ -13,43 +14,20 @@ import com.medeiros.ordnael.casa.resource.acesso.AcessoResource;
 import com.medeiros.ordnael.casa.resource.acesso.AcessoTipo;
 import com.medeiros.ordnael.casa.resource.usuario.UsuarioResource;
 import com.medeiros.ordnael.core.crypto.Crypto;
-import com.medeiros.ordnael.core.dao.ListaDeClasses;
 
 @ApplicationPath("/rest")
 public class App extends Application {
 	
+	@Context
+	public static ServletContext context;
+	
 	private static Integer teste = 0;
 	
-	public App() {
-		
-		try {
-			
-			//String path= System.getProperty("user.dir");
-			
-			//System.out.println("path: " + path);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	@Override
+	public Set<Object> getSingletons() {
 		
 		teste ++;
 		if (teste==1) {
-			
-			System.out.println("----->>> aqui");
-			
-			try {
-				
-				List<Class<?>> classes = new ListaDeClasses("com.medeiros.ordnael.casa.model").getClasses();
-				System.out.println("Inicio Classes");
-				for (Class<?> classe : classes) {
-					if (classe.isAnnotationPresent(Table.class)) {
-						System.out.println("--> " + classe.getSimpleName());
-					}
-				}
-				
-			} catch (Exception e) {
-				System.out.println("----->>> aqui erro");
-			}
 			
 			try (UsuarioResource usuRes = new UsuarioResource()) {
 				
@@ -84,8 +62,15 @@ public class App extends Application {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+			
+			
 		}
 		
+		return super.getSingletons();
+	}
+	
+	public App() {
 	}
 	
 }

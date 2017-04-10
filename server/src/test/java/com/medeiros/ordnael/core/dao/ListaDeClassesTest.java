@@ -1,12 +1,9 @@
 package com.medeiros.ordnael.core.dao;
 
-import java.util.List;
+import javax.ws.rs.client.ClientBuilder;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.medeiros.ordnael.casa.entity.Gasto;
-import com.medeiros.ordnael.casa.entity.Usuario;
 
 public class ListaDeClassesTest {
 
@@ -14,29 +11,11 @@ public class ListaDeClassesTest {
 	public void testeClassesNoPacote() {
 		
 		try {
-				
-			String packageName = "com.medeiros.ordnael.casa.entity";
-			
-			List<Class<?>> classes = new ListaDeClasses(packageName).getClasses();
-			
-			boolean temClassesUsuario = false;
-			boolean temClassesGasto = false;
-			
-			for (Class<?> classe : classes) {
-				if (Usuario.class.equals(classe)) {
-					temClassesUsuario = true;
-				} else if (Gasto.class.equals(classe)) {
-					temClassesGasto = true;
-				}
-			}
-			
-			Assert.assertTrue(temClassesUsuario);
-			Assert.assertTrue(temClassesGasto);
-			
+			Boolean certo = ClientBuilder.newClient().target("http://localhost:8080/casa/rest/teste/testelistaclasses").request().get(Boolean.class);
+			Assert.assertTrue("Não achou classes", certo);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Assert.assertTrue("Não achou classes", false);
 		}
-		
 		
 	}
 	

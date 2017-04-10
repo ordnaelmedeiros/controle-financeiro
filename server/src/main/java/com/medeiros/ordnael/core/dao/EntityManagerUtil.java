@@ -1,13 +1,12 @@
 package com.medeiros.ordnael.core.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
+import javax.persistence.Table;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
-import com.medeiros.ordnael.casa.entity.Acesso;
-import com.medeiros.ordnael.casa.entity.Sessao;
-import com.medeiros.ordnael.casa.entity.Usuario;
 
 public class EntityManagerUtil {
 
@@ -33,13 +32,12 @@ public class EntityManagerUtil {
 			.setProperty("hibernate.format_sql", "false")
 			.setProperty("hibernate.show_sql", "false");
 		
-		cfg.addAnnotatedClass(Usuario.class);
-		cfg.addAnnotatedClass(Acesso.class);
-		cfg.addAnnotatedClass(Sessao.class);
+		//cfg.addAnnotatedClass(Usuario.class);
+		//cfg.addAnnotatedClass(Acesso.class);
+		//cfg.addAnnotatedClass(Sessao.class);
 		
-		/*
 		try {
-			List<Class<?>> classes = new ListaDeClasses("com.medeiros.ordnael.casa.model").getClasses();
+			List<Class<?>> classes = new ListaDeClasses("com.medeiros.ordnael.casa.entity").getClasses();
 			System.out.println("Inicio Classes");
 			for (Class<?> classe : classes) {
 				if (classe.isAnnotationPresent(Table.class)) {
@@ -50,7 +48,7 @@ public class EntityManagerUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		*/
+		
 		sessions = cfg.buildSessionFactory();
 		
 	}

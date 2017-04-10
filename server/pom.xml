@@ -35,8 +35,12 @@
 		<!-- maven-compiler-plugin -->
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
+		
+		<wildfly.hostname>35.167.76.29</wildfly.hostname>
+		<wildfly.username>leandro</wildfly.username>
+		<wildfly.password>xxxx</wildfly.password>
+		
 	</properties>
-
 
 	<dependencies>
 
@@ -51,7 +55,7 @@
 			<artifactId>cdi-api</artifactId>
 			<version>1.2</version>
 		</dependency>
-
+		
 		<!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -199,16 +203,16 @@
 				<artifactId>wildfly-maven-plugin</artifactId>
 				<version>${version.wildfly.maven.plugin}</version>
 				<configuration>
-					<hostname>35.167.76.29</hostname>
-					<username>leandro</username>
-					<password>xxxx</password>
+					<hostname>${wildfly.hostname}</hostname>
+					<username>${wildfly.username}</username>
+					<password>${wildfly.password}</password>
 				</configuration>
 				<executions>
 					<execution>
-<!-- 						<phase>package</phase> -->
-<!-- 						<goals> -->
-<!-- 							<goal>deploy</goal> -->
-<!-- 						</goals> -->
+						<!-- <phase>package</phase> -->
+						<!-- <goals> -->
+						<!-- <goal>deploy</goal> -->
+						<!-- </goals> -->
 					</execution>
 				</executions>
 			</plugin>

@@ -9,13 +9,15 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.ext.Provider;
 
+import com.medeiros.ordnael.casa.entity.Acesso;
+import com.medeiros.ordnael.casa.entity.Sessao;
+import com.medeiros.ordnael.casa.resource.acesso.AcessoResource;
+import com.medeiros.ordnael.casa.resource.sessao.SessaoResource;
 import com.medeiros.ordnael.core.rest.RestSessao;
 
 @Provider
 public class RequestFilter implements ContainerRequestFilter {
 
-	private long contador = 0;
-	
 	@Inject
 	RestSessao sessao;
 	
@@ -31,20 +33,47 @@ public class RequestFilter implements ContainerRequestFilter {
 		
 		String pathInfo = context.getPathInfo();
 		if (!this.verificaPermissaoTotal(pathInfo)) {
-			throw new IOException("Permissão negada");
+			
+			String usuariotoken = context.getHeader("User-Token");
+			String sessaotoken = context.getHeader("Session-Token");
+			String useragent = context.getHeader("User-Agent");
+			String ip = context.getRemoteHost()+"-"+context.getRemoteAddr();
+			
+			if (usuariotoken==null || sessaotoken==null) {
+				throw new IOException("Permissão negada");
+			}
+			
+			try (
+				SessaoResource sesRes = new SessaoResource();
+				AcessoResource aceRes = new AcessoResource();
+			) {
+				
+				Sessao sessao = sesRes.buscaPelaToken(sessaotoken);
+				Acesso acesso = aceRes.buscaPorToken(usuariotoken);
+				
+				if (sessao==null) {
+					throw new IOException("Sessão expirada");
+				}
+				if (acesso==null) {
+					throw new IOException("Sessão expirada");
+				}
+				
+				if (acesso.getId().equals(sessao.getAcesso().getId())) {
+					throw new IOException("Sessão expirada");
+				}
+				
+				if (!sessao.getUseragent().equals(useragent) || !sessao.getIp().equals(ip)) {
+					throw new IOException("Sessão expirada");
+				}
+				
+			} catch (Exception e) {
+				throw new IOException(e);
+			}
+			
+			sessao.setUsuariotoken(usuariotoken);
+			sessao.setSessiontoken(sessaotoken);
+			
 		}
-		
-		System.out.println("URL: " + context.getRemoteHost()+"-"+context.getRemoteAddr());
-		System.out.println("User-Agent: " + context.getHeader("User-Agent"));
-		System.out.println("usuariotoken: " + context.getHeader("User-Token"));
-		System.out.println("sessaotoken: " + context.getHeader("Session-Token"));
-		System.out.println("metodo: " + pathInfo);
-		
-		this.contador++;
-		//		sessao.setTexto(" -> " + this.contador);
-		System.out.println("RequestFilter: " +this.contador);
-		
-		//throw new IOException("teste");
 		
 	}
 

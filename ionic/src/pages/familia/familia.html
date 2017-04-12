@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Família
+    </ion-title>
+
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+ <form [formGroup]="cadastro" (ngSubmit)="gravar()">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Código</ion-label>
+        <ion-input name="id" formControlName="id" type="number" placeholder="Código" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Descrição</ion-label>
+        <ion-input name="descricao" formControlName="descricao" type="text" placeholder="Descrição" required></ion-input>
+      </ion-item>
+
+      <button ion-button block icon-left color="verde" type="submit">
+        <ion-icon name="log-in"></ion-icon>
+        Acessar
+      </button>
+    </ion-list>
+  </form>
+
+</ion-content>
+
+
+ 

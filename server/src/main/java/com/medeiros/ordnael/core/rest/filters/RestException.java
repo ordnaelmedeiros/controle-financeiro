@@ -7,6 +7,10 @@ public class RestException extends Exception {
 	public RestException() {
 	}
 	
+	public RestException(Exception e) {
+		super(e.getMessage());
+	}
+	
 	public RestException(String erro) {
 		super(erro);
 	}

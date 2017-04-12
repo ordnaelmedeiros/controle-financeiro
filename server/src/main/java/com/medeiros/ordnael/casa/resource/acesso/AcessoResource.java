@@ -35,7 +35,6 @@ public class AcessoResource extends ResourceCRUD<Acesso> {
 		TypedQuery<Acesso> query = this.getEm().createQuery("select a from Acesso a where a.token = :token", this.getModelClass());
 		query.setParameter("token", token);
 		Acesso acesso = query.getSingleResult();
-		
 		return acesso;
 	}
 

@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AlertController, LoadingController, Loading } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
 
-import { HomePage } from '../pages/home/home';
 import { ValidacaoPage } from '../pages/validacao/validacao';
 import { Config } from '../app/core/config/config';
 import { Banco } from '../app/core/banco/banco-resource';
@@ -13,6 +12,9 @@ import { UsuarioResource } from '../app/core/banco/resource/usuario-resource';
 import { SessaoResource } from '../app/core/banco/resource/sessao-resource';
 
 import { LoginPage } from '../pages/login/login';
+import { HomePage } from '../pages/home/home';
+import { FamiliaPage } from '../pages/familia/familia';
+import { UsuarioPage } from '../pages/usuario/usuario';
 
 @Component({
   templateUrl: 'app.html'
@@ -160,4 +162,11 @@ export class MyApp {
     this.rootPage = HomePage;
   }
 
+  private abrirFamilia() {
+    this.rootPage = FamiliaPage;
+  }
+
+  private abrirUsuario() {
+    this.rootPage = UsuarioPage;
+  }
 }

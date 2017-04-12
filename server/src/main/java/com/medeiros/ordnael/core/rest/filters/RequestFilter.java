@@ -58,7 +58,7 @@ public class RequestFilter implements ContainerRequestFilter {
 					throw new IOException("Sessão expirada");
 				}
 				
-				if (acesso.getId().equals(sessao.getAcesso().getId())) {
+				if (!acesso.getId().equals(sessao.getAcesso().getId())) {
 					throw new IOException("Sessão expirada");
 				}
 				

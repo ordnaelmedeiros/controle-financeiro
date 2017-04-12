@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Usuário
+    </ion-title>
+
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+ <form [formGroup]="cadastro" (ngSubmit)="gravar()">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Código</ion-label>
+        <ion-input name="id" formControlName="id" type="number" disabled></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Nome</ion-label>
+        <ion-input name="nome" formControlName="nome" type="text" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input name="email" formControlName="email" type="email" required></ion-input>
+      </ion-item>
+
+      <button ion-button block icon-left color="verde" type="submit">
+        <ion-icon name="send"></ion-icon>
+        Gravar
+      </button>
+    </ion-list>
+  </form>
+
+</ion-content>
+
+
+ 

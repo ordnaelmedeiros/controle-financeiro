@@ -23,8 +23,8 @@ export class HomePage {
      
   }
 
-  clickTeste() {
-    
+  logoff() {
+    this.config.abrirLogin();
   }
 
 }

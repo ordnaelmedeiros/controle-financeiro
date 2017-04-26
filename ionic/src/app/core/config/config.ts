@@ -14,7 +14,10 @@ export class Config {
     public sessao:Sessao = new Sessao();
 
     public terminouLogin:Function;
+    public abrirLogin:Function;
 
+    public ping:String = "";
+    
     constructor() {
 
         

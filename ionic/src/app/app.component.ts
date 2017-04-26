@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AlertController, LoadingController, Loading } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
+import { Http } from '@angular/http';
 
 import { ValidacaoPage } from '../pages/validacao/validacao';
 import { Config } from '../app/core/config/config';
@@ -27,6 +28,7 @@ export class MyApp {
 
   constructor(
     private platform: Platform, 
+    private http:Http,
     statusBar: StatusBar, 
     private splashScreen: SplashScreen, 
     private alertCtrl:AlertController,
@@ -34,6 +36,10 @@ export class MyApp {
     private loadingCtrl: LoadingController,
     private banco:Banco,
   ) {
+
+    this.config.abrirLogin = () => {
+      this.abrirLogin();
+    }
 
     platform.ready().then(() => {
 
@@ -140,12 +146,32 @@ export class MyApp {
 
   private validaWifi() {
 
+    this.http.get(this.config.url+"/rest/teste/ping", null).subscribe(
+        (response) => {
+          console.log(response.text());
+          this.config.ping = response.text();
+        },
+        (error) => {
+          console.log("erro: " + error.text());
+          this.config.ping = error.text();
+          /*
+          let alert = this.alertCtrl.create({
+            title: 'Erro',
+            subTitle: error.text(), 
+            buttons: ['OK']
+          });
+          alert.present();
+          */
+        }
+      );
+
+    /*
     if (this.network!=null && this.network.type=='wifi') {
       this.config.isWifi = true;
     } else {
       this.config.isWifi = false;
     }
-    
+    */
   }
 
   private abrirLogin() {

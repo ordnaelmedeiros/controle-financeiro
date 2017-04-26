@@ -15,6 +15,7 @@ import { Config } from '../../app/core/config/config';
 export class UsuarioPage {
 
   private cadastro:any = {};
+  private salvou:Boolean = false;
 
   constructor(
     private http:Http,
@@ -28,7 +29,9 @@ export class UsuarioPage {
     this.cadastro = this.formBuilder.group({
       id:['', Validators.required],
       nome:['', Validators.required],
-      email:['', Validators.required]
+      email:['', Validators.required],
+      nomeacesso:['', Validators.required],
+      senha:['', Validators.required]
     });
     
   }
@@ -36,14 +39,26 @@ export class UsuarioPage {
   gravar() {
 
     var vHeader = new Headers();
-    vHeader.append("Accept", "application/json");
-    vHeader.append("Content-Type", "application/json");
+    //vHeader.append("Accept", "application/json");
+    //vHeader.append("Content-Type", "application/json");
     vHeader.append("User-Token", ""+this.config.sessao.usertoken);
     vHeader.append("Session-Token", ""+this.config.sessao.sessaotoken);
 
-    if (this.cadastro.value.id!="") {
+    let usuario:any = {
+      id: this.cadastro.value.id,
+      nome: this.cadastro.value.nome,
+      email: this.cadastro.value.email,
+      acesso: {
+        nomeacesso: this.cadastro.value.nomeacesso,
+        senha: this.cadastro.value.senha
+      }
+    }
+
+    console.log(JSON.stringify(usuario));
+    /*
+    if (this.cadastro.value.id!=null && this.cadastro.value.id!="") {
       
-      this.http.put(this.config.url+"/rest/usuario", this.cadastro.value, {headers: vHeader}).subscribe(
+      this.http.put(this.config.url+"/rest/usuario", usuario, {headers: vHeader}).subscribe(
         (response) => {
           console.log(JSON.stringify(response.json()));
           this.cadastro.patchValue(response.json());
@@ -59,11 +74,12 @@ export class UsuarioPage {
       );
 
     } else {
-
-      this.http.post(this.config.url+"/rest/usuario", this.cadastro.value, {headers: vHeader}).subscribe(
+*/
+      this.http.post(this.config.url+"/rest/usuario", usuario, {headers: vHeader}).subscribe(
         (response) => {
           console.log(JSON.stringify(response.json()));
           this.cadastro.patchValue(response.json());
+          this.salvou = true;
         },
         (error) => {
           let alert = this.alertCtrl.create({
@@ -77,6 +93,6 @@ export class UsuarioPage {
       
     }
     
-  }
+  //}
 
 }

@@ -31,7 +31,17 @@
         <ion-input name="email" formControlName="email" type="email" required></ion-input>
       </ion-item>
 
-      <button ion-button block icon-left color="verde" type="submit">
+      <ion-item>
+        <ion-label floating>Nome acesso</ion-label>
+        <ion-input name="nomeacesso" formControlName="nomeacesso" type="text" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Senha</ion-label>
+        <ion-input name="senha" formControlName="senha" type="password" required></ion-input>
+      </ion-item>
+
+      <button ion-button block icon-left color="verde" type="submit"  [disabled]="salvou">
         <ion-icon name="send"></ion-icon>
         Gravar
       </button>

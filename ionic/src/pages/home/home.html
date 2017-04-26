@@ -17,7 +17,13 @@
   Usuário: {{this.config.usuario.nome}} <br/>
   Email: {{this.config.usuario.email}} <br/>
 
-  <!--button ion-fab (click)="clickTeste()">Teste</button-->
+  <ion-fab bottom right>
+    <button ion-fab (click)="logoff()"><ion-icon name="log-out"></ion-icon></button>
+  </ion-fab>
+
+  <ion-label bottom left>Versão: 0.2</ion-label>
+  <ion-label bottom left>{{this.config.ping}}</ion-label>
+
 
 </ion-content>
 

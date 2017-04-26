@@ -39,16 +39,7 @@ public class App extends Application {
 					
 					Acesso acesso = new Acesso();
 					acesso.setNomeacesso("admin");
-					acesso.setTipo(AcessoTipo.ADMIN);
-					acesso.setSenha(new Crypto().criptografar("admin"));
-					acesso.setData(LocalDateTime.now());
-					
-					acesso.setToken(
-						new Crypto().criptografar(acesso.getNomeacesso()+";"+acesso.getData().toString()) +
-						new Crypto().criptografar(acesso.getSenha()+";"+acesso.getData().toString())
-					);
-					
-					acessRes.incluir(acesso);
+					acesso.setSenha("admin");
 					
 					admin = new Usuario();
 					admin.setNome("Administrador");

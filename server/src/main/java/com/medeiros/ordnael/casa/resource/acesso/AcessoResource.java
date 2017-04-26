@@ -36,6 +36,16 @@ public class AcessoResource extends ResourceCRUD<Acesso> {
 		query.setParameter("token", token);
 		Acesso acesso = query.getSingleResult();
 		return acesso;
+		
 	}
-
+	
+	public Acesso buscaPorUsuario(Long id) {
+		
+		TypedQuery<Acesso> query = this.getEm().createQuery("select a from Usaurio u inner join u.acesso a  where u.id = :id", this.getModelClass());
+		query.setParameter("id", id);
+		Acesso acesso = query.getSingleResult();
+		return acesso;
+		
+	}
+	
 }

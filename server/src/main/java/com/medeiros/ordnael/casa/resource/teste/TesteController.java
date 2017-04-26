@@ -30,8 +30,9 @@ public class TesteController {
 	@Path("/ping")
 	@Produces(MediaType.TEXT_HTML)
 	public String ping() {
-		
-		return "ping: " + LocalDateTime.now();
+		String msg = "ping: " + LocalDateTime.now();
+		System.out.println(msg);
+		return msg;
 		
 	}
 	

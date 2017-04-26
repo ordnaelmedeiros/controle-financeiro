@@ -7,8 +7,8 @@
     <ion-content>
         <ion-list>
             <button ion-item menuClose (click)="abrirHome()">Home</button>
-            <button ion-item menuClose (click)="abrirUsuario()">Usuário</button>
-            <button ion-item menuClose (click)="abrirFamilia()">Família</button>
+            <button ion-item menuClose (click)="abrirUsuario()" *ngIf="config.usuario.id==1">Usuário</button>
+            <button ion-item menuClose (click)="abrirFamilia()" *ngIf="config.usuario.id==1">Família</button>
         </ion-list>
     </ion-content>
 

@@ -1,5 +1,7 @@
 package com.medeiros.ordnael.casa.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,14 +10,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.medeiros.ordnael.core.validacao.CampoInfo;
 
 @Table
 @Entity
-public class Usuario {
+public class Familia {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,15 +29,13 @@ public class Usuario {
 	@CampoInfo(descricao="Nome", obrigatorio=true)
 	private String nome;
 	
-	@Column(length=200)
-	@CampoInfo(descricao="Email", obrigatorio=true)
-	private String email;
-	
-	//@JsonIgnore
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="acessoId", foreignKey=@ForeignKey(name="fk_usuario_acesso"))
-	private Acesso acesso;
-	
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name = "familia_usuario",
+		joinColumns = { @JoinColumn(name = "familiaid", foreignKey=@ForeignKey(name="fk_familia_usuario_familia")) },
+		inverseJoinColumns = { @JoinColumn(name = "usuarioid", foreignKey=@ForeignKey(name="fk_familia_usuario_usuario")) }
+	)
+	private List<Usuario> usuarios;
+
 	public Long getId() {
 		return id;
 	}
@@ -51,20 +52,12 @@ public class Usuario {
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
+	public List<Usuario> getUsuarios() {
+		return usuarios;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
-
-	public Acesso getAcesso() {
-		return acesso;
-	}
-
-	public void setAcesso(Acesso login) {
-		this.acesso = login;
-	}
-		
+	
 }

@@ -36,6 +36,7 @@ public abstract class ResourceCRUD<Model> implements AutoCloseable {
 		this.setEm(res.getEm());
 	}
 
+	protected void buscaPos(Model model) {}
 	
 	public List<Model> buscaTotos() {
 		
@@ -61,6 +62,10 @@ public abstract class ResourceCRUD<Model> implements AutoCloseable {
 		
 		List<Model> lista = query.getResultList();
 		
+		for (Model model : lista) {
+			this.buscaPos(model);
+		}
+		
 		return lista;
 		
 	}
@@ -76,17 +81,23 @@ public abstract class ResourceCRUD<Model> implements AutoCloseable {
 		
 	}
 	
-	public Model incluir(Model model) {
+	protected void incluirPre(Model model) throws Exception {}
+	
+	public Model incluir(Model model) throws Exception {
 		
 		this.beginTransaction();
+		this.incluirPre(model);
 		this.getEm().persist(model);
 		return model;
 		
 	}
 	
-	public Model alterar(Model model) {
+	protected void alterarPre(Model model) throws Exception {}
+	
+	public Model alterar(Model model) throws Exception {
 		
 		this.beginTransaction();
+		this.alterarPre(model);
 		this.getEm().merge(model);
 		return model;
 		
